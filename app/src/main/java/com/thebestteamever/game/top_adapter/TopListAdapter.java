@@ -11,6 +11,9 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.thebestteamever.game.R;
+import com.thebestteamever.game.item.ListItem;
+
 import java.util.List;
 
 /**
@@ -42,42 +45,26 @@ public class TopListAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-//        View view = convertView;
-//        if (view == null) {
-//            view = layoutInflater.inflate(R.layout.item_list, parent, false);
-//        }
-//
-//        ListItem number = getNumber(position);
-//
-//        TextView textView = (TextView) view.findViewById(R.id.textView);
-//        textView.setText(number.getNumber());
-//
-//        if (position % 2 != 0) {
-//            view.setBackgroundColor(Color.parseColor("#aaaaaa"));
-//        } else {
-//            view.setBackgroundColor(Color.parseColor("#ffffff"));
-//        }
-//
-//        return view;
-        return null;
+        View view = convertView;
+        if (view == null) {
+            view = layoutInflater.inflate(R.layout.item_list, parent, false);
+        }
+
+        ListItem number = getNumber(position);
+
+        TextView textView = (TextView) view.findViewById(R.id.textView);
+        textView.setText(number.getNumber());
+
+        if (position % 2 != 0) {
+            view.setBackgroundColor(Color.parseColor("#aaaaaa"));
+        } else {
+            view.setBackgroundColor(Color.parseColor("#ffffff"));
+        }
+
+        return view;
     }
 
     private ListItem getNumber(int position) {
         return (ListItem) getItem(position);
-    }
-    public class ListItem {
-        private String number;
-
-        public ListItem(String number) {
-            this.number = number;
-        }
-
-        public String getNumber() {
-            return number;
-        }
-
-        public void setNumber(String number) {
-            this.number = number;
-        }
     }
 }

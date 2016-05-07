@@ -5,8 +5,13 @@
     tools:context="com.thebestteamever.game.naw_fragments.TopFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+    <ListView
+        android:id="@+id/listView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/naw_top"/>
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true" />
 </FrameLayout>
