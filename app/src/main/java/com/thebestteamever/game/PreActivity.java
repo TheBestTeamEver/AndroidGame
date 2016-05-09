@@ -14,7 +14,7 @@ public class PreActivity extends AppCompatActivity {
         Thread splash_time = new Thread() {
             public void run() {
                 try {
-                    sleep(2000);
+                    sleep(2000); //общение с серваком в будущем
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 } finally {

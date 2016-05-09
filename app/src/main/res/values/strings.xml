@@ -13,4 +13,6 @@
     <string name="naw_top">ТОП</string>
     <string name="naw_settings">Настройки</string>
     <string name="naw_exit">Выход</string>
+
+    <string name="fragment_play_explain">Выбрать по имени личность должны Вы, \n Будьте внимательны, трудолюбивы. \n Ошибка Вам будет стоить очков \n И места в рейтинге -  \n Свод правил таков. </string>
 </resources>

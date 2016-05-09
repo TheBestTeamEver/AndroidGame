@@ -5,9 +5,23 @@
     tools:context="com.thebestteamever.game.naw_fragments.PlayFragment">
 
     <!-- TODO: Update blank fragment layout -->
+
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/naw_game" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Правила игры"
+        android:id="@+id/textView4"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="5dp" />
+
+    <TextView
+        android:layout_width="279dp"
+        android:layout_height="310dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/fragment_play_explain"
+        android:id="@+id/textView5"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="50dp" />
 
 </FrameLayout>

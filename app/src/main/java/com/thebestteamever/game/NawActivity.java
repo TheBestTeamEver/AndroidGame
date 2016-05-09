@@ -1,5 +1,6 @@
 package com.thebestteamever.game;
 
+import android.content.Intent;
 import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -37,8 +38,8 @@ public class NawActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                startActivity(new Intent(NawActivity.this, GameActivity.class));
+                finish();
             }
         });
 
@@ -106,8 +107,6 @@ public class NawActivity extends AppCompatActivity
             fragmentTransaction.replace(R.id.container, settingsFragment);
         } else if (id == R.id.nav_logout) {
             //Сделать выход
-        } else if (id == R.id.nav_share) {
-
         }
 
         fragmentTransaction.commit();
