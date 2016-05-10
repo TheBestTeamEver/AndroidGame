@@ -9,4 +9,48 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.thebestteamever.game.GameActivity">
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView2"
+        android:layout_marginTop="60dp"
+        android:maxHeight="100dp"
+        android:maxWidth="100dp"
+        android:minHeight="140dp"
+        android:minWidth="140dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="20dp" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView3"
+        android:maxHeight="100dp"
+        android:maxWidth="100dp"
+        android:minHeight="140dp"
+        android:minWidth="140dp"
+        android:layout_alignTop="@+id/imageView2"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="20dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/person_name"
+        android:id="@+id/textView6"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Choose"
+        android:id="@+id/button"
+        android:layout_marginTop="34dp"
+        android:layout_below="@+id/textView6"
+        android:layout_centerHorizontal="true"
+        android:minWidth="100dp" />
 </RelativeLayout>
