@@ -1,4 +1,4 @@
-package com.thebestteamever.game;
+package com.thebestteamever.game.ServiceAPI;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -14,47 +14,16 @@ import java.net.URL;
 /**
  * Created by alexss8 on 10.05.2016.
  */
-public class QuestionSetRest{
-
-    private final static String API_KEY = "2ndV4pZBnSmsh0AmmnTmk3R9GmBgp1HhTUrjsncQwIJ2Il9tcG";
-    private final static String METHOD_URL = "https://yoda.p.mashape.com/yoda";
+public class QuestionRest {
     private final static String FIRST_IMAGE_URL = "http://lorempixel.com/500/500/";
     private final static String SECOND_IMAGE_URL = "http://lorempixel.com/500/500/";
     private final static String personName = "John Travolta";
     private final static Boolean firstPersTrue = true;
 
-    QuestionSetRest() {
+    QuestionRest() {
 
     }
 
-    public String processText(final String text) throws IOException {
-        InputStream is = null;
-        try {
-            final String uri = Uri.parse(METHOD_URL)
-                    .buildUpon()
-                    .appendQueryParameter("sentence", text)
-                    .build()
-                    .toString();
-            HttpURLConnection conn = (HttpURLConnection) new URL(uri).openConnection();
-            conn.setReadTimeout(10000);
-            conn.setConnectTimeout(15000);
-            conn.setRequestMethod("GET");
-            conn.setDoInput(true);
-            conn.setRequestProperty("X-Mashape-Key", API_KEY);
-            conn.setRequestProperty("Accept", "text/plain");
-            conn.connect();
-            int responseCode = conn.getResponseCode();
-            is = conn.getInputStream();
-            if (responseCode == 200) {
-                return inputStreamToString(is);
-            }
-        } finally {
-            if (is != null) {
-                is.close();
-            }
-        }
-        return null;
-    }
 
     public Bitmap processImage1(final String text) throws IOException {
         InputStream is = null;
@@ -113,13 +82,13 @@ public class QuestionSetRest{
     }
 
     //TODO: name parser
-    public String processName(final String text){
+    public String processName(final String text) {
         return personName;
 
     }
 
     //TODO: true of person parser
-    public Boolean processFirstPersTrue(final String text){
+    public Boolean processFirstPersTrue(final String text) {
         return firstPersTrue;
     }
 
