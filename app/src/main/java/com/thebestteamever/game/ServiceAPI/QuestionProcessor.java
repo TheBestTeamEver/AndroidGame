@@ -8,6 +8,7 @@ public class QuestionProcessor {
     private final static String LOG_TAG = QuestionProcessor.class.getSimpleName();
 
     public static QuestionSet processQuest(final String text) throws IOException {
+
         Bitmap firstImg = new QuestionRest().processImage1("kek");
         Bitmap secondImg = new QuestionRest().processImage2("kek");
         String  persName = "kek";
