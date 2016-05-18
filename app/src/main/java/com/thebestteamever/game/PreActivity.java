@@ -23,6 +23,7 @@ public class PreActivity extends AppCompatActivity {
                 }
             }
         };
+
         splash_time.start();
     }
 }
