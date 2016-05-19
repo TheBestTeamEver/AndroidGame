@@ -1,5 +1,6 @@
 package com.thebestteamever.game;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -33,6 +34,12 @@ public class GameActivity extends AppCompatActivity implements QuestionServiceHe
     public void onRightClick(View view) {
         requestId = QuestionServiceHelper.makeQUESTION(this, "KEK", this);
         progressBar.setVisibility(View.VISIBLE);
+
+    }
+
+    public void onExitClick(View view) {
+        startActivity(new Intent(GameActivity.this, LoginActivity.class));
+        finish();
 
     }
 

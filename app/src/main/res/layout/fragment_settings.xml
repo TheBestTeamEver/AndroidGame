@@ -5,9 +5,47 @@
     tools:context="com.thebestteamever.game.naw_fragments.SettingsFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/naw_settings" />
 
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Цвет темы"
+            android:id="@+id/textView7"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Синий"
+            android:id="@+id/radioButton"
+            android:layout_gravity="right"
+            android:layout_marginRight="20dp"
+            android:width="100dp"
+            android:textAlignment="center"
+            android:onClick="OnRadioChecked"
+            android:checked="true"
+            android:clickable="true"
+            android:contextClickable="true"
+            android:enabled="true" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Зеленый"
+            android:id="@+id/radioButton2"
+            android:layout_gravity="right"
+            android:layout_marginRight="20dp"
+            android:width="100dp"
+            android:textAlignment="center"
+            android:onClick="OnRadioChecked"
+            android:contextClickable="true"
+            android:clickable="true" />
+
+    </RadioGroup>
 </FrameLayout>
