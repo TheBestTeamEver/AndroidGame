@@ -9,97 +9,94 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 
-/**
- * Created by alexss8 on 10.05.2016.
- */
-public class QuestionRest {
-    private final static String FIRST_IMAGE_URL = "http://lorempixel.com/500/500/";
-    private final static String SECOND_IMAGE_URL = "http://lorempixel.com/500/500/";
-    private final static String personName = "John Travolta";
-    private final static Boolean firstPersTrue = true;
 
+public class QuestionRest {
     QuestionRest() {
 
     }
 
-
-    public Bitmap processImage1(final String text) throws IOException {
-        InputStream is = null;
-
+    public String getJSON(String url, int timeout) {
+        HttpURLConnection c = null;
         try {
-            final String uri = Uri.parse(FIRST_IMAGE_URL)
-                    .buildUpon()
-                    .build()
-                    .toString();
-            HttpURLConnection conn = (HttpURLConnection) new URL(uri).openConnection();
-            conn.setReadTimeout(10000);
-            conn.setConnectTimeout(15000);
-            conn.setRequestMethod("GET");
-            conn.setDoInput(true);
-            conn.connect();
-            int responseCode = conn.getResponseCode();
-            is = conn.getInputStream();
-            Bitmap firstImage = BitmapFactory.decodeStream(is);
-            if (responseCode == 200) {
-                return firstImage;
+            URL u = new URL(url);
+            c = (HttpURLConnection) u.openConnection();
+            c.setRequestMethod("GET");
+            c.setRequestProperty("Content-length", "0");
+            c.setUseCaches(false);
+            c.setAllowUserInteraction(false);
+            c.setConnectTimeout(timeout);
+            c.setReadTimeout(timeout);
+            c.connect();
+            int status = c.getResponseCode();
+
+            switch (status) {
+                case 200:
+                case 201:
+                    BufferedReader br = new BufferedReader(new InputStreamReader(c.getInputStream()));
+                    StringBuilder sb = new StringBuilder();
+                    String line;
+                    while ((line = br.readLine()) != null) {
+                        sb.append(line + "\n");
+                    }
+                    br.close();
+                    return sb.toString();
             }
+
+        } catch (MalformedURLException ex) {
+            System.out.println(ex);
+        } catch (IOException ex) {
+            System.out.println(ex);
         } finally {
-            if (is != null) {
-                is.close();
+
+            if (c != null) {
+                try {
+                    c.disconnect();
+                } catch (Exception ex) {
+                    System.out.println(ex);
+                }
             }
         }
         return null;
     }
 
-    public Bitmap processImage2(final String text) throws IOException {
-        InputStream is = null;
-
+    public Bitmap getImage(final String url, int timeout) {
+        HttpURLConnection c = null;
         try {
-            final String uri = Uri.parse(SECOND_IMAGE_URL)
-                    .buildUpon()
-                    .build()
-                    .toString();
-            HttpURLConnection conn = (HttpURLConnection) new URL(uri).openConnection();
-            conn.setReadTimeout(10000);
-            conn.setConnectTimeout(15000);
-            conn.setRequestMethod("GET");
-            conn.setDoInput(true);
-            conn.connect();
-            int responseCode = conn.getResponseCode();
-            is = conn.getInputStream();
-            Bitmap secondImage = BitmapFactory.decodeStream(is);
-            if (responseCode == 200) {
-                return secondImage;
+            URL u = new URL(url);
+            c = (HttpURLConnection) u.openConnection();
+            c.setRequestMethod("GET");
+            c.setRequestProperty("Content-length", "0");
+            c.setUseCaches(false);
+            c.setAllowUserInteraction(false);
+            c.setConnectTimeout(timeout);
+            c.setReadTimeout(timeout);
+            c.connect();
+            int status = c.getResponseCode();
+
+            switch (status) {
+                case 200:
+                case 201:
+                    InputStream is = c.getInputStream();
+                    return BitmapFactory.decodeStream(is);
             }
+        } catch (MalformedURLException ex) {
+            System.out.println(ex);
+        } catch (IOException ex) {
+            System.out.println(ex);
         } finally {
-            if (is != null) {
-                is.close();
+
+            if (c != null) {
+                try {
+                    c.disconnect();
+                } catch (Exception ex) {
+                    System.out.println(ex);
+                }
             }
         }
         return null;
-    }
-
-    //TODO: name parser
-    public String processName(final String text) {
-        return personName;
-
-    }
-
-    //TODO: true of person parser
-    public Boolean processFirstPersTrue(final String text) {
-        return firstPersTrue;
-    }
-
-    private static String inputStreamToString(final InputStream is) throws IOException {
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(is));
-        StringBuilder stringBuilder = new StringBuilder();
-        String line;
-        while ((line = bufferedReader.readLine()) != null) {
-            stringBuilder.append(line);
-        }
-        return stringBuilder.toString();
     }
 }
 
