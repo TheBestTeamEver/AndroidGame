@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentActivity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -15,6 +16,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import com.thebestteamever.game.naw_fragments.PlayFragment;
 import com.thebestteamever.game.naw_fragments.SettingsFragment;
@@ -31,6 +34,7 @@ public class NawActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_naw);
+        themeUtils.onActivityCreateSetTheme(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -55,6 +59,34 @@ public class NawActivity extends AppCompatActivity
         playFragment = new PlayFragment();
         settingsFragment = new SettingsFragment();
         topFragment = new TopFragment();
+
+        LayoutInflater layoutInflater= (LayoutInflater)getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+        View popupView = layoutInflater.inflate(R.layout.fragment_settings, null);
+
+        RadioGroup radioGroup = (RadioGroup) popupView.findViewById(R.id.radioGroup1);
+
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener(){
+
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
+                    case -1:
+                        themeUtils.changeToTheme(NawActivity.this, themeUtils.THEME_DEFAULT);
+                        break;
+
+                    case R.id.radioButton:
+                        themeUtils.changeToTheme(NawActivity.this, themeUtils.THEME_BLUE);
+                        break;
+
+                    case R.id.radioButton2:
+                        themeUtils.changeToTheme(NawActivity.this, themeUtils.THEME_GREEN);
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+        });
 
     }
 
@@ -105,7 +137,8 @@ public class NawActivity extends AppCompatActivity
         } else if (id == R.id.nav_settings) {
             fragmentTransaction.replace(R.id.container, settingsFragment);
         } else if (id == R.id.nav_logout) {
-            //Сделать выход
+            startActivity(new Intent(NawActivity.this, LoginActivity.class));
+            finish();
         }
 
         fragmentTransaction.commit();
