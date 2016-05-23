@@ -27,7 +27,7 @@ import com.thebestteamever.game.naw_fragments.SettingsFragment;
 import com.thebestteamever.game.naw_fragments.TopFragment;
 
 public class NawActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, SettingsFragment.onRadioEventClickedListener {
 
     PlayFragment playFragment;
     SettingsFragment settingsFragment;
