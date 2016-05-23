@@ -1,5 +1,6 @@
 package com.thebestteamever.game.activities;
 
+import android.content.Intent;
 import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import com.thebestteamever.game.ServiceAPI.QuestionServiceHelper;
 import java.util.Random;
 
 public class GameActivity extends AppCompatActivity implements QuestionServiceHelper.QUESTIONResultListener {
+    public static final String EXTRA_MESSAGE = "SCORE";
     private ProgressBar progressBar;
     private ImageView leftImage;
     private ImageView rightImage;
@@ -23,7 +25,8 @@ public class GameActivity extends AppCompatActivity implements QuestionServiceHe
     private int requestId;
     private boolean isLeft = true;
     private int count = 0;
-    private final int MAX_LEVEL = 10;
+    private static final int MAX_LEVEL = 10;
+    private int score = 0;
 
 
     @Override
@@ -35,9 +38,6 @@ public class GameActivity extends AppCompatActivity implements QuestionServiceHe
         leftImage = (ImageView) findViewById(R.id.imageView2);
         rightImage = (ImageView) findViewById(R.id.imageView3);
         personName = (TextView) findViewById(R.id.textView6);
-
-        assert progressBar != null;
-        progressBar.setVisibility(View.INVISIBLE);
 
         startGame();
     }
@@ -120,12 +120,13 @@ public class GameActivity extends AppCompatActivity implements QuestionServiceHe
 
     public void rightAnswer() {
         // TODO: Зеленый цвет
+        score++;
 
     }
 
     public void wrongAnswer() {
         // TODO: Красный цвет, вибрация
-
+        score--;
 
         long mills = 100L;
         Vibrator vibrator = (Vibrator) getSystemService(this.VIBRATOR_SERVICE);
@@ -133,6 +134,9 @@ public class GameActivity extends AppCompatActivity implements QuestionServiceHe
     }
 
     public void finishGame() {
+        Intent intent = new Intent(this, GameOverActivity.class);
+        intent.putExtra(EXTRA_MESSAGE, String.valueOf(this.score));
+        startActivity(intent);
         finish();
     }
 
