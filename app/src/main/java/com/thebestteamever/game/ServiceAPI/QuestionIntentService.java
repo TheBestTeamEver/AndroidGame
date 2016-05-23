@@ -4,7 +4,7 @@ import android.app.IntentService;
 import android.content.Intent;
 import android.support.v4.content.LocalBroadcastManager;
 
-import com.thebestteamever.game.QuestionSet;
+import com.thebestteamever.game.Level;
 
 import java.io.IOException;
 
@@ -33,7 +33,7 @@ public class QuestionIntentService extends IntentService {
 
     private void handleActionQUESTION(final String text) {
         try {
-            final QuestionSet myQuestion = QuestionProcessor.processQuest("kek");
+            final Level myQuestion = QuestionProcessor.processQuest("kek");
             if (myQuestion != null) {
                 LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(
                         new Intent(ACTION_QUESTION_RESULT_SUCCESS).putExtra(EXTRA_QUESTION_RESULT, myQuestion)

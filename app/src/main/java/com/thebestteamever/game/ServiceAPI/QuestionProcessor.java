@@ -2,16 +2,15 @@ package com.thebestteamever.game.ServiceAPI;
 
 import android.graphics.Bitmap;
 import java.io.IOException;
-import java.util.LinkedList;
 
 import com.google.gson.Gson;
-import com.thebestteamever.game.QuestionSet;
+import com.thebestteamever.game.Level;
 
 public class QuestionProcessor {
     private static final int COUNT_LEVELS = 10;
     private static int level = 0;
     private static RandomLevels msg = null;
-    public static QuestionSet processQuest(final String text) throws IOException {
+    public static Level processQuest(final String text) throws IOException {
         if (level == 0) {
             String data = new QuestionRest().getJSON("http://91.218.230.80/api/get_random_urls/", 15000);
             msg = new Gson().fromJson(data, RandomLevels.class);
@@ -27,7 +26,7 @@ public class QuestionProcessor {
             }
             Bitmap firstImg = new QuestionRest().getImage(firstImageUrl, 15000);
             Bitmap secondImg = new QuestionRest().getImage(secondImageUrl, 15000);
-            return new QuestionSet(firstImg, secondImg, firstName, secondName);
+            return new Level(firstImg, secondImg, firstName, secondName);
         }
         return null;
     }

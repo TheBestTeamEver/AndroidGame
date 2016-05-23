@@ -8,34 +8,34 @@ import android.graphics.Bitmap;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class QuestionSet implements Parcelable {
+public class Level implements Parcelable {
     private Bitmap firstImage;
     private Bitmap secondImage;
     private String firstName;
     private String secondName;
 
-    public QuestionSet(Bitmap firstImage, Bitmap secondImage, String firstName, String secondName) {
+    public Level(Bitmap firstImage, Bitmap secondImage, String firstName, String secondName) {
         this.firstImage = firstImage;
         this.secondImage = secondImage;
         this.firstName = firstName;
         this.secondName = secondName;
     }
 
-    protected QuestionSet(Parcel in) {
+    protected Level(Parcel in) {
         firstImage = in.readParcelable(Bitmap.class.getClassLoader());
         secondImage = in.readParcelable(Bitmap.class.getClassLoader());
         firstName = in.readString();
     }
 
-    public static final Creator<QuestionSet> CREATOR = new Creator<QuestionSet>() {
+    public static final Creator<Level> CREATOR = new Creator<Level>() {
         @Override
-        public QuestionSet createFromParcel(Parcel in) {
-            return new QuestionSet(in);
+        public Level createFromParcel(Parcel in) {
+            return new Level(in);
         }
 
         @Override
-        public QuestionSet[] newArray(int size) {
-            return new QuestionSet[size];
+        public Level[] newArray(int size) {
+            return new Level[size];
         }
     };
 
@@ -43,7 +43,7 @@ public class QuestionSet implements Parcelable {
         return firstImage;
     }
 
-    public Bitmap getsecondImage() {
+    public Bitmap getSecondImage() {
         return secondImage;
     }
 

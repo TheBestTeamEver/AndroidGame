@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.support.v4.content.LocalBroadcastManager;
 
-import com.thebestteamever.game.QuestionSet;
+import com.thebestteamever.game.Level;
 
 import java.util.Hashtable;
 import java.util.Map;
@@ -23,7 +23,7 @@ public class QuestionServiceHelper {
 		LocalBroadcastManager.getInstance(context).registerReceiver(new BroadcastReceiver() {
 			@Override
 			public void onReceive(final Context context, final Intent intent) {
-				final QuestionSet result = intent.getParcelableExtra(QuestionIntentService.EXTRA_QUESTION_RESULT);
+				final Level result = intent.getParcelableExtra(QuestionIntentService.EXTRA_QUESTION_RESULT);
 				final boolean success = intent.getAction().equals(QuestionIntentService.ACTION_QUESTION_RESULT_SUCCESS);
 				for (Map.Entry<Integer, QUESTIONResultListener> pair : mListeners.entrySet()) {
 					pair.getValue().onQUESTIONResult(success, result);
@@ -47,6 +47,6 @@ public class QuestionServiceHelper {
 	}
 
 	public interface QUESTIONResultListener {
-		void onQUESTIONResult(final boolean success, final QuestionSet result);
+		void onQUESTIONResult(final boolean success, final Level result);
 	}
 }
