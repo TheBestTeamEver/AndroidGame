@@ -18,6 +18,7 @@ public class GameActivity extends AppCompatActivity implements QuestionServiceHe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+        themeUtils.onActivityCreateSetTheme(this);
         progressBar = (ProgressBar) findViewById(R.id.progressBar2);
         assert progressBar != null;
         progressBar.setVisibility(View.INVISIBLE);

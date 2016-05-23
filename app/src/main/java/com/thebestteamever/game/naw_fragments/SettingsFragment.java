@@ -1,14 +1,23 @@
 package com.thebestteamever.game.naw_fragments;
 
+import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.Toast;
 
+import com.thebestteamever.game.NawActivity;
 import com.thebestteamever.game.R;
+import com.thebestteamever.game.themeUtils;
+import com.thebestteamever.game.top_adapter.TopListAdapter;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -19,10 +28,18 @@ import com.thebestteamever.game.R;
  * create an instance of this fragment.
  */
 public class SettingsFragment extends Fragment {
+
+    public interface onRadioEventClickedListener{
+        public void themeChange(int theme);
+    }
+
+    onRadioEventClickedListener radioEventListener;
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    final String LOG_TAG = "myLogs";
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -53,6 +70,17 @@ public class SettingsFragment extends Fragment {
     }
 
     @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        final Activity activity = context instanceof Activity ? (Activity) context : null;
+        try {
+            radioEventListener = (onRadioEventClickedListener)activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString() + " must implement onRadioEventClickedListener");
+        }
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
@@ -65,8 +93,29 @@ public class SettingsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_settings, container, false);
+        View v = inflater.inflate(R.layout.fragment_settings, null);
+        RadioGroup radioGroup = (RadioGroup) v.findViewById(R.id.radioGroup1);
+
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener(){
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if(checkedId == R.id.radioButton) {
+                    radioEventListener.themeChange(1);
+                    Log.d(LOG_TAG, "Radio1 click in Fragment");
+                }
+                else if(checkedId == R.id.radioButton2) {
+                    radioEventListener.themeChange(2);
+                    Log.d(LOG_TAG, "Radio2 click in Fragment");
+                } else if(checkedId == -1){
+                    radioEventListener.themeChange(0);
+                    Log.d(LOG_TAG, "Nothing is clicked in Fragment");
+                }
+            }
+        });
+
+        return v;
     }
+
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {

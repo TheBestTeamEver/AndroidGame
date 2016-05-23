@@ -1,11 +1,13 @@
 package com.thebestteamever.game;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -18,6 +20,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.thebestteamever.game.naw_fragments.PlayFragment;
 import com.thebestteamever.game.naw_fragments.SettingsFragment;
@@ -59,34 +62,6 @@ public class NawActivity extends AppCompatActivity
         playFragment = new PlayFragment();
         settingsFragment = new SettingsFragment();
         topFragment = new TopFragment();
-
-        LayoutInflater layoutInflater= (LayoutInflater)getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);
-        View popupView = layoutInflater.inflate(R.layout.fragment_settings, null);
-
-        RadioGroup radioGroup = (RadioGroup) popupView.findViewById(R.id.radioGroup1);
-
-        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener(){
-
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                switch (checkedId) {
-                    case -1:
-                        themeUtils.changeToTheme(NawActivity.this, themeUtils.THEME_DEFAULT);
-                        break;
-
-                    case R.id.radioButton:
-                        themeUtils.changeToTheme(NawActivity.this, themeUtils.THEME_BLUE);
-                        break;
-
-                    case R.id.radioButton2:
-                        themeUtils.changeToTheme(NawActivity.this, themeUtils.THEME_GREEN);
-                        break;
-
-                    default:
-                        break;
-                }
-            }
-        });
 
     }
 
@@ -146,5 +121,15 @@ public class NawActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void themeChange(int theme){
+        if (theme == 1) {
+            themeUtils.changeToTheme(NawActivity.this, themeUtils.THEME_BLUE);
+        } else if(theme == 2){
+            themeUtils.changeToTheme(NawActivity.this, themeUtils.THEME_GREEN);
+        } else if(theme == 0){
+            themeUtils.changeToTheme(NawActivity.this, themeUtils.THEME_DEFAULT);
+        }
     }
 }
