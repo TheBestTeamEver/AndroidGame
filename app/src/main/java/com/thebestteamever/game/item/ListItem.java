@@ -1,8 +1,6 @@
 package com.thebestteamever.game.item;
 
-/**
- * Created by supergood on 11.10.15.
- */
+
 public class ListItem {
     private String number;
 

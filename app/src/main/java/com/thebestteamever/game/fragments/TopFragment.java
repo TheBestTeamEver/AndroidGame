@@ -1,6 +1,5 @@
-package com.thebestteamever.game.naw_fragments;
+package com.thebestteamever.game.fragments;
 
-import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

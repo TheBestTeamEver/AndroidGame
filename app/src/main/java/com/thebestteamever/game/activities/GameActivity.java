@@ -1,4 +1,4 @@
-package com.thebestteamever.game;
+package com.thebestteamever.game.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -7,6 +7,8 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.thebestteamever.game.QuestionSet;
+import com.thebestteamever.game.R;
 import com.thebestteamever.game.ServiceAPI.QuestionServiceHelper;
 
 public class GameActivity extends AppCompatActivity implements QuestionServiceHelper.QUESTIONResultListener {

@@ -1,8 +1,10 @@
-package com.thebestteamever.game;
+package com.thebestteamever.game.activities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.thebestteamever.game.R;
 
 public class PreActivity extends AppCompatActivity {
 

@@ -1,9 +1,11 @@
-package com.thebestteamever.game;
+package com.thebestteamever.game.activities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+
+import com.thebestteamever.game.R;
 
 public class LoginActivity extends AppCompatActivity {
 

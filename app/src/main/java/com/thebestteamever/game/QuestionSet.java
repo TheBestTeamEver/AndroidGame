@@ -11,20 +11,20 @@ import android.os.Parcelable;
 public class QuestionSet implements Parcelable {
     private Bitmap firstImage;
     private Bitmap secondImage;
-    private String personName;
-    private Boolean firstPersonTrue;
+    private String firstName;
+    private String secondName;
 
-    public QuestionSet(Bitmap imF, Bitmap imF1, String persName, Boolean fTrue) {
-        firstImage = imF;
-        secondImage = imF1;
-        personName = persName;
-        firstPersonTrue = fTrue;
+    public QuestionSet(Bitmap firstImage, Bitmap secondImage, String firstName, String secondName) {
+        this.firstImage = firstImage;
+        this.secondImage = secondImage;
+        this.firstName = firstName;
+        this.secondName = secondName;
     }
 
     protected QuestionSet(Parcel in) {
         firstImage = in.readParcelable(Bitmap.class.getClassLoader());
         secondImage = in.readParcelable(Bitmap.class.getClassLoader());
-        personName = in.readString();
+        firstName = in.readString();
     }
 
     public static final Creator<QuestionSet> CREATOR = new Creator<QuestionSet>() {
@@ -47,12 +47,8 @@ public class QuestionSet implements Parcelable {
         return secondImage;
     }
 
-    public String getPersonName() {
-        return personName;
-    }
-
-    public Boolean getfirstPersonTrue() {
-        return firstPersonTrue;
+    public String getFirstName() {
+        return firstName;
     }
 
     public int describeContents() {
@@ -64,7 +60,14 @@ public class QuestionSet implements Parcelable {
 
         parcel.writeParcelable(firstImage, i);
         parcel.writeParcelable(secondImage, i);
-        parcel.writeString(personName);
-        parcel.writeValue(firstPersonTrue);
+        parcel.writeString(firstName);
+    }
+
+    public String getSecondName() {
+        return secondName;
+    }
+
+    public void setSecondName(String secondName) {
+        this.secondName = secondName;
     }
 }
