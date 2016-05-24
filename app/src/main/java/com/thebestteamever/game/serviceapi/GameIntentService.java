@@ -35,8 +35,8 @@ public class GameIntentService extends IntentService {
                 final String text = intent.getStringExtra(EXTRA_LEVEL_TEXT);
                 handleActionLevel(text);
             } else if (ACTION_REGISTRATION.equals(action)) {
-                final String text = intent.getStringExtra(EXTRA_REGISTRATION_TEXT);
-                handleActionRegistration(text);
+                final RegistrationParams params = intent.getParcelableExtra(EXTRA_REGISTRATION_TEXT);
+                handleActionRegistration(params);
             }
         }
     }
@@ -60,9 +60,9 @@ public class GameIntentService extends IntentService {
         }
     }
 
-    private void handleActionRegistration(final String text) {
+    private void handleActionRegistration(final RegistrationParams params) {
         try {
-            final String registration = Processor.processRegistration("kek");
+            final String registration = Processor.processRegistration(params);
             if (registration != null && !registration.isEmpty()) {
                 LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(
                         new Intent(ACTION_REGISTRATION_RESULT_SUCCESS).putExtra(EXTRA_REGISTRATION_RESULT, registration)

@@ -43,7 +43,7 @@ public class ServiceHelper {
         return mIdCounter++;
     }
 
-    public static int makeRegistration(final Context context, final String text, final RegistrationResultListener listener) {
+    public static int makeRegistration(final Context context, final RegistrationParams params, final RegistrationResultListener listener) {
         final IntentFilter filter = new IntentFilter();
         filter.addAction(GameIntentService.ACTION_REGISTRATION_RESULT_SUCCESS);
         filter.addAction(GameIntentService.ACTION_REGISTRATION_RESULT_ERROR);
@@ -64,7 +64,7 @@ public class ServiceHelper {
 
         Intent intent = new Intent(context, GameIntentService.class);
         intent.setAction(GameIntentService.ACTION_REGISTRATION);
-        intent.putExtra(GameIntentService.EXTRA_REGISTRATION_TEXT, text);
+        intent.putExtra(GameIntentService.EXTRA_REGISTRATION_TEXT, params);
         context.startService(intent);
 
         return mIdCounter++;
