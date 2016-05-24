@@ -43,6 +43,33 @@ public class ServiceHelper {
         return mIdCounter++;
     }
 
+//    public static int makeTop(final Context context, final String text, final LevelResultListener listener) {
+//        final IntentFilter filter = new IntentFilter();
+//        filter.addAction(GameIntentService.ACTION_LEVEL_RESULT_SUCCESS);
+//        filter.addAction(GameIntentService.ACTION_LEVEL_RESULT_ERROR);
+//
+//        LocalBroadcastManager.getInstance(context).registerReceiver(new BroadcastReceiver() {
+//            @Override
+//            public void onReceive(final Context context, final Intent intent) {
+//                final Level result = intent.getParcelableExtra(GameIntentService.EXTRA_LEVEL_RESULT);
+//                final boolean success = intent.getAction().equals(GameIntentService.ACTION_LEVEL_RESULT_SUCCESS);
+//                for (Map.Entry<Integer, LevelResultListener> pair : levelListeners.entrySet()) {
+//                    pair.getValue().onLevelResult(success, result);
+//                }
+//                levelListeners.clear();
+//            }
+//        }, filter);
+//
+//        levelListeners.put(mIdCounter, listener);
+//
+//        Intent intent = new Intent(context, GameIntentService.class);
+//        intent.setAction(GameIntentService.ACTION_LEVEL);
+//        intent.putExtra(GameIntentService.EXTRA_LEVEL_TEXT, text);
+//        context.startService(intent);
+//
+//        return mIdCounter++;
+//    }
+
     public static int makeRegistration(final Context context, final RegistrationParams params, final RegistrationResultListener listener) {
         final IntentFilter filter = new IntentFilter();
         filter.addAction(GameIntentService.ACTION_REGISTRATION_RESULT_SUCCESS);

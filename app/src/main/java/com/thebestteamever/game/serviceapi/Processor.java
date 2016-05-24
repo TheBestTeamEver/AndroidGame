@@ -31,6 +31,11 @@ public class Processor {
         return null;
     }
 
+    public static String processTop(final String text) throws IOException {
+
+        return null;
+    }
+
 
     public static String processRegistration(RegistrationParams params) throws IOException {
 
