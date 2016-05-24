@@ -11,11 +11,11 @@ import android.widget.TextView;
 
 import com.thebestteamever.game.Level;
 import com.thebestteamever.game.R;
-import com.thebestteamever.game.ServiceAPI.QuestionServiceHelper;
+import com.thebestteamever.game.serviceapi.ServiceHelper;
 
 import java.util.Random;
 
-public class GameActivity extends AppCompatActivity implements QuestionServiceHelper.QUESTIONResultListener {
+public class GameActivity extends AppCompatActivity implements ServiceHelper.LevelResultListener {
     public static final String EXTRA_MESSAGE = "SCORE";
     private ProgressBar progressBar;
     private ImageView leftImage;
@@ -55,7 +55,7 @@ public class GameActivity extends AppCompatActivity implements QuestionServiceHe
     }
 
     @Override
-    public void onQUESTIONResult(boolean success, Level result) {
+    public void onLevelResult(boolean success, Level result) {
 
         progressBar.setVisibility(View.INVISIBLE);
         if (success && result != null) {
@@ -75,7 +75,7 @@ public class GameActivity extends AppCompatActivity implements QuestionServiceHe
             finishGame();
         }
 
-        requestId = QuestionServiceHelper.makeQUESTION(this, "KEK", this);
+        requestId = ServiceHelper.makeLevel(this, "KEK", this);
         progressBar.setVisibility(View.VISIBLE);
         count++;
     }

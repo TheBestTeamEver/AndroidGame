@@ -1,4 +1,4 @@
-package com.thebestteamever.game.ServiceAPI;
+package com.thebestteamever.game.serviceapi;
 
 import java.util.ArrayList;
 import java.util.HashMap;

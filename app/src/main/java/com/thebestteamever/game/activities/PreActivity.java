@@ -20,7 +20,7 @@ public class PreActivity extends AppCompatActivity {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 } finally {
-                    startActivity(new Intent(PreActivity.this, LoginActivity.class));
+                    startActivity(new Intent(PreActivity.this, RegistrationActivity.class));
                     finish();
                 }
             }
