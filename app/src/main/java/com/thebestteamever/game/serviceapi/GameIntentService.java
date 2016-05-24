@@ -1,4 +1,4 @@
-package com.thebestteamever.game.ServiceAPI;
+package com.thebestteamever.game.serviceapi;
 
 import android.app.IntentService;
 import android.content.Intent;

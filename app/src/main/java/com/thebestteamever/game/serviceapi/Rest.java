@@ -1,8 +1,7 @@
-package com.thebestteamever.game.ServiceAPI;
+package com.thebestteamever.game.serviceapi;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -13,8 +12,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 
-public class QuestionRest {
-    QuestionRest() {
+public class Rest {
+    Rest() {
 
     }
 

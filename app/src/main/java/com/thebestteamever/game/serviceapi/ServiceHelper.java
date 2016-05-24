@@ -1,4 +1,4 @@
-package com.thebestteamever.game.ServiceAPI;
+package com.thebestteamever.game.serviceapi;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

@@ -1,4 +1,4 @@
-package com.thebestteamever.game.ServiceAPI;
+package com.thebestteamever.game.serviceapi;
 
 import android.graphics.Bitmap;
 import java.io.IOException;
@@ -6,7 +6,7 @@ import java.io.IOException;
 import com.google.gson.Gson;
 import com.thebestteamever.game.Level;
 
-public class QuestionProcessor {
+public class Processor {
     private static final int COUNT_LEVELS = 10;
     private static int level = 0;
     private static RandomLevels msg = null;

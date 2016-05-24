@@ -10,7 +10,7 @@ import android.widget.ListView;
 
 import com.thebestteamever.game.R;
 import com.thebestteamever.game.item.ListItem;
-import com.thebestteamever.game.top_adapter.TopListAdapter;
+import com.thebestteamever.game.topadapter.TopListAdapter;
 
 import java.util.ArrayList;
 import java.util.LinkedList;

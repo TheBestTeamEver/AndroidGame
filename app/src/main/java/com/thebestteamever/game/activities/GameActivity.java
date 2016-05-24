@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.thebestteamever.game.Level;
 import com.thebestteamever.game.R;
-import com.thebestteamever.game.ServiceAPI.ServiceHelper;
+import com.thebestteamever.game.serviceapi.ServiceHelper;
 
 import java.util.Random;
 
