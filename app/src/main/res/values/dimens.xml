@@ -6,4 +6,6 @@
     <dimen name="nav_header_vertical_spacing">16dp</dimen>
     <dimen name="nav_header_height">160dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="timer_text_height">48dp</dimen>
+    <dimen name="person_name_text_height">21dp</dimen>
 </resources>

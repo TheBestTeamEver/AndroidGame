@@ -1,7 +1,10 @@
 package com.thebestteamever.game.activities;
 
 import android.content.Intent;
+import android.os.CountDownTimer;
+import android.os.SystemClock;
 import android.os.Vibrator;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -28,6 +31,11 @@ public class GameActivity extends AppCompatActivity implements QuestionServiceHe
     private static final int MAX_LEVEL = 10;
     private int score = 0;
 
+    private static final int MILLIS_PER_SECOND = 1000;
+    private static final int SECONDS_TO_COUNTDOWN = 30;
+    private TextView timerDisplay;
+    private CountDownTimer timer;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +46,8 @@ public class GameActivity extends AppCompatActivity implements QuestionServiceHe
         leftImage = (ImageView) findViewById(R.id.imageView2);
         rightImage = (ImageView) findViewById(R.id.imageView3);
         personName = (TextView) findViewById(R.id.textView6);
+
+        timerDisplay = (TextView) findViewById(R.id.textView7);
 
         startGame();
     }
@@ -67,6 +77,7 @@ public class GameActivity extends AppCompatActivity implements QuestionServiceHe
 
     public void startGame() {
         // TODO: start game
+        showTimer(SECONDS_TO_COUNTDOWN * MILLIS_PER_SECOND);
         getNextLevel();
     }
 
@@ -140,5 +151,19 @@ public class GameActivity extends AppCompatActivity implements QuestionServiceHe
         finish();
     }
 
+    private void showTimer(int countdownMillis) {
+        if(timer != null) { timer.cancel(); }
+        timer = new CountDownTimer(countdownMillis, MILLIS_PER_SECOND) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                timerDisplay.setText("" +
+                        millisUntilFinished / MILLIS_PER_SECOND);
+            }
+            @Override
+            public void onFinish() {
+                timerDisplay.setText("KABOOM!");
+            }
+        }.start();
+    }
 
 }
