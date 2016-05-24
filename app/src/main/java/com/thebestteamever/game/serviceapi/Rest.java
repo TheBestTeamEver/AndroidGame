@@ -62,6 +62,7 @@ public class Rest {
         }
         return null;
     }
+
     public String postJSON(String url, int timeout, String params) {
         HttpURLConnection c = null;
         byte[] data = null;
@@ -69,11 +70,11 @@ public class Rest {
             URL u = new URL(url);
             c = (HttpURLConnection) u.openConnection();
             c.setRequestMethod("POST");
-            c.setRequestProperty("Content-length", "0");
-            c.setUseCaches(false);
-            c.setAllowUserInteraction(false);
-            c.setConnectTimeout(timeout);
-            c.setReadTimeout(timeout);
+
+//            c.setUseCaches(false);
+//            c.setAllowUserInteraction(false);
+//            c.setConnectTimeout(timeout);
+//            c.setReadTimeout(timeout);
 
             c.setDoOutput(true);
             c.setDoInput(true);

@@ -35,7 +35,8 @@ public class Processor {
     public static String processRegistration(RegistrationParams params) throws IOException {
 
         String postParams = "name="+params.getFirstName()+"&login="+params.getLogin()+"&password="+params.getPassword();
-        String data = new Rest().postJSON("http://91.218.230.80/api/get_random_urls/", 15000, postParams);
+
+        String data = new Rest().postJSON("http://91.218.230.80/api/registration/", 15000, postParams);
         RegistrationRequest msg = new Gson().fromJson(data, RegistrationRequest.class);
 
         if (msg != null) {
