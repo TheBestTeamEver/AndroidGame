@@ -51,7 +51,10 @@ public class TopListAdapter extends BaseAdapter {
         ListItem number = getNumber(position);
 
         TextView textView = (TextView) view.findViewById(R.id.textView);
-        textView.setText(number.getNumber());
+        TextView textView12 = (TextView) view.findViewById(R.id.textView12);
+        textView.setText(number.getUserName());
+        textView12.setText(number.getRating());
+
 
         if (position % 2 != 0) {
             view.setBackgroundColor(Color.parseColor("#aaaaaa"));

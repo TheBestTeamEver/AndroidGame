@@ -1,10 +1,13 @@
 package com.thebestteamever.game.serviceapi;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
+
 import java.io.IOException;
 
 import com.google.gson.Gson;
 import com.thebestteamever.game.Level;
+import com.thebestteamever.game.serviceapi.DBHelper;
 
 public class Processor {
     private static final int COUNT_LEVELS = 10;
@@ -32,7 +35,7 @@ public class Processor {
     }
 
     public static String processTop(final String text) throws IOException {
-
+        //посылает распарсенные текста на прелоадер при запуске
         return null;
     }
 

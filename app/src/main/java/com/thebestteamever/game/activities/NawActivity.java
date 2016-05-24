@@ -1,6 +1,7 @@
 package com.thebestteamever.game.activities;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -18,6 +19,7 @@ import com.thebestteamever.game.R;
 import com.thebestteamever.game.fragments.PlayFragment;
 import com.thebestteamever.game.fragments.SettingsFragment;
 import com.thebestteamever.game.fragments.TopFragment;
+import com.thebestteamever.game.serviceapi.DBHelper;
 
 public class NawActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -25,6 +27,7 @@ public class NawActivity extends AppCompatActivity
     PlayFragment playFragment;
     SettingsFragment settingsFragment;
     TopFragment topFragment;
+    DBHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +35,7 @@ public class NawActivity extends AppCompatActivity
         setContentView(R.layout.activity_naw);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        dbHelper = new DBHelper(this);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -104,7 +108,11 @@ public class NawActivity extends AppCompatActivity
         } else if (id == R.id.nav_settings) {
             fragmentTransaction.replace(R.id.container, settingsFragment);
         } else if (id == R.id.nav_logout) {
-            //Сделать выход
+            startActivity(new Intent(NawActivity.this, LoginActivity.class));
+            SQLiteDatabase db = dbHelper.getWritableDatabase();
+            db.delete("mytable", null, null);
+            dbHelper.close();
+            finish();
         }
 
         fragmentTransaction.commit();

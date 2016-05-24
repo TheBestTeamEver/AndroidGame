@@ -1,8 +1,11 @@
 package com.thebestteamever.game.fragments;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +13,8 @@ import android.widget.ListView;
 
 import com.thebestteamever.game.R;
 import com.thebestteamever.game.item.ListItem;
+import com.thebestteamever.game.serviceapi.DBHelper;
+import com.thebestteamever.game.serviceapi.TopListMock;
 import com.thebestteamever.game.topadapter.TopListAdapter;
 
 import java.util.ArrayList;
@@ -25,6 +30,8 @@ import java.util.List;
  * create an instance of this fragment.
  */
 public class TopFragment extends Fragment {
+
+    DBHelper dbHelper;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -61,6 +68,7 @@ public class TopFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        dbHelper = new DBHelper(getActivity());
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -82,64 +90,24 @@ public class TopFragment extends Fragment {
 
     private LinkedList<ListItem> initData() {
         LinkedList<ListItem> linkedList = new LinkedList<>();
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        Cursor c = db.query("mytable", null, null, null, null, null, null);
+// ставим позицию курсора на первую строку выборки
+        // если в выборке нет строк, вернется false
+        if (c.moveToFirst()) {
 
-        List<String> units = new ArrayList<>();
-        List<String> dozens = new ArrayList<>();
-        List<String> hundreds = new ArrayList<>();
+            // определяем номера столбцов по имени в выборке
+            int loginColIndex = c.getColumnIndex("login");
+            int ratingColIndex = c.getColumnIndex("rating");
 
-        units.add("один");
-        units.add("два");
-        units.add("три");
-        units.add("четыре");
-        units.add("пять");
-        units.add("шесть");
-        units.add("семь");
-        units.add("восемь");
-        units.add("девять");
-        units.add("десять");
-        units.add("одинадцать");
-        units.add("двенадцать");
-        units.add("тринадцать");
-        units.add("четырнадцать");
-        units.add("пятнадцать");
-        units.add("шестнадцать");
-        units.add("семнадцать");
-        units.add("восемнадцать");
-        units.add("девятнадцать");
-
-        dozens.add("двадцать");
-        dozens.add("тридцать");
-        dozens.add("сорок");
-        dozens.add("пятьдесят");
-        dozens.add("шестьдесят");
-        dozens.add("семьдесят");
-        dozens.add("восемьдесят");
-        dozens.add("девяносто");
-
-        hundreds.add("сто");
-        hundreds.add("двести");
-        hundreds.add("триста");
-        hundreds.add("четыреста");
-        hundreds.add("пятьсот");
-        hundreds.add("шестьсот");
-        hundreds.add("семьсот");
-        hundreds.add("восемьсот");
-        hundreds.add("девятьсот");
-        hundreds.add("тысяча");
-
-        for (int i = -1; i < 9; i++) {
-            String hundred = (i < 0) ? "" : hundreds.get(i) + " ";
-            for (int j = -1; j < 8; j++) {
-                String dozen = (j < 0) ? "" : dozens.get(j) + " ";
-                int max = (j < 0) ? 19 : 9;
-                for (int k = 0; k < max; k++) {
-                    String unit = units.get(k);
-                    linkedList.add(new ListItem(hundred + dozen + unit));
-                }
-                if (j < 7) linkedList.add(new ListItem(hundred + dozens.get(j + 1)));
-            }
-            linkedList.add(new ListItem(hundreds.get(i + 1)));
+            do {
+                ListItem list = new ListItem(c.getString(loginColIndex),c.getString(ratingColIndex));
+                linkedList.add(list);
+            } while (c.moveToNext());
         }
+        c.close();
+
+        dbHelper.close();
 
         return linkedList;
     }
