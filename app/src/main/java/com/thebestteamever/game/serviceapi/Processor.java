@@ -10,9 +10,9 @@ public class Processor {
     private static final int COUNT_LEVELS = 10;
     private static int level = 0;
     private static RandomLevels msg = null;
-    public static Level processQuest(final String text) throws IOException {
+    public static Level processLevel(final String text) throws IOException {
         if (level == 0) {
-            String data = new QuestionRest().getJSON("http://91.218.230.80/api/get_random_urls/", 15000);
+            String data = new Rest().getJSON("http://91.218.230.80/api/get_random_urls/", 15000);
             msg = new Gson().fromJson(data, RandomLevels.class);
         }
         if (msg != null) {
@@ -24,12 +24,30 @@ public class Processor {
             if (level >= COUNT_LEVELS - 1 || level >= msg.getData().size()) {
                 level = 0;
             }
-            Bitmap firstImg = new QuestionRest().getImage(firstImageUrl, 15000);
-            Bitmap secondImg = new QuestionRest().getImage(secondImageUrl, 15000);
+            Bitmap firstImg = new Rest().getImage(firstImageUrl, 15000);
+            Bitmap secondImg = new Rest().getImage(secondImageUrl, 15000);
             return new Level(firstImg, secondImg, firstName, secondName);
         }
         return null;
     }
 
 
+    public static String processRegistration(String kek) throws IOException {
+        String data = new Rest().getJSON("http://91.218.230.80/api/get_random_urls/", 15000);
+        RegistrationRequest msg = new Gson().fromJson(data, RegistrationRequest.class);
+
+        if (msg != null) {
+            return msg.getData();
+        }
+
+        return null;
+    }
+
+    class RegistrationRequest {
+        private String data;
+
+        public String getData() {
+            return data;
+        }
+    }
 }

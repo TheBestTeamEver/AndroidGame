@@ -16,6 +16,13 @@ public class GameIntentService extends IntentService {
     public final static String ACTION_LEVEL_RESULT_ERROR = "action.ACTION_LEVEL_RESULT_ERROR";
     public final static String EXTRA_LEVEL_RESULT = "extra.LEVEL_RESULT";
 
+    public final static String ACTION_REGISTRATION = "action.REGISTRATION";
+    public final static String EXTRA_REGISTRATION_TEXT = "extra.REGISTRATION_TEXT";
+
+    public static final String ACTION_REGISTRATION_RESULT_SUCCESS = "action.ACTION_REGISTRATION_RESULT_SUCCESS";
+    public final static String ACTION_REGISTRATION_RESULT_ERROR = "action.ACTION_REGISTRATION_RESULT_ERROR";
+    public final static String EXTRA_REGISTRATION_RESULT = "extra.REGISTRATION_RESULT";
+
     public GameIntentService() {
         super("GameIntentService");
     }
@@ -26,17 +33,20 @@ public class GameIntentService extends IntentService {
             final String action = intent.getAction();
             if (ACTION_LEVEL.equals(action)) {
                 final String text = intent.getStringExtra(EXTRA_LEVEL_TEXT);
-                handleActionQUESTION(text);
+                handleActionLevel(text);
+            } else if (ACTION_REGISTRATION.equals(action)) {
+                final String text = intent.getStringExtra(EXTRA_REGISTRATION_TEXT);
+                handleActionRegistration(text);
             }
         }
     }
 
-    private void handleActionQUESTION(final String text) {
+    private void handleActionLevel(final String text) {
         try {
-            final Level myQuestion = QuestionProcessor.processQuest("kek");
-            if (myQuestion != null) {
+            final Level level = Processor.processLevel("kek");
+            if (level != null) {
                 LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(
-                        new Intent(ACTION_LEVEL_RESULT_SUCCESS).putExtra(EXTRA_LEVEL_RESULT, myQuestion)
+                        new Intent(ACTION_LEVEL_RESULT_SUCCESS).putExtra(EXTRA_LEVEL_RESULT, level)
                 );
             } else {
                 LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(
@@ -46,6 +56,25 @@ public class GameIntentService extends IntentService {
         } catch (IOException ex) {
             LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(
                     new Intent(ACTION_LEVEL_RESULT_ERROR).putExtra(EXTRA_LEVEL_RESULT, ex.getMessage())
+            );
+        }
+    }
+
+    private void handleActionRegistration(final String text) {
+        try {
+            final String registration = Processor.processRegistration("kek");
+            if (registration != null && !registration.isEmpty()) {
+                LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(
+                        new Intent(ACTION_REGISTRATION_RESULT_SUCCESS).putExtra(EXTRA_REGISTRATION_RESULT, registration)
+                );
+            } else {
+                LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(
+                        new Intent(ACTION_REGISTRATION_RESULT_ERROR).putExtra(EXTRA_REGISTRATION_RESULT, "result is null")
+                );
+            }
+        } catch (IOException ex) {
+            LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(
+                    new Intent(ACTION_REGISTRATION_RESULT_ERROR).putExtra(EXTRA_REGISTRATION_RESULT, ex.getMessage())
             );
         }
     }

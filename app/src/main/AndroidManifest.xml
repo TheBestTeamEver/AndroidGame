@@ -27,9 +27,10 @@
 
         <service
             android:name=".serviceapi.GameIntentService"
-            android:exported="false"></service>
+            android:exported="false" />
 
-        <activity android:name=".activities.GameOverActivity"></activity>
+        <activity android:name=".activities.GameOverActivity" />
+        <activity android:name=".activities.RegistrationActivity"></activity>
     </application>
 
 </manifest>
