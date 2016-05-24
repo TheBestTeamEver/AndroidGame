@@ -39,6 +39,7 @@ public class SettingsFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private static Boolean CHECKED_RADIO1 = true;
     final String LOG_TAG = "myLogs";
 
     // TODO: Rename and change types of parameters
@@ -87,6 +88,7 @@ public class SettingsFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
     }
 
     @Override
@@ -94,17 +96,27 @@ public class SettingsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_settings, null);
-        RadioGroup radioGroup = (RadioGroup) v.findViewById(R.id.radioGroup1);
+        final RadioGroup radioGroup = (RadioGroup) v.findViewById(R.id.radioGroup1);
+        final RadioButton radioButton = (RadioButton) v.findViewById(R.id.radioButton);
+        final RadioButton radioButton2 = (RadioButton) v.findViewById(R.id.radioButton2);
+
+        if(CHECKED_RADIO1) {
+            radioGroup.check(R.id.radioButton);
+        }else {
+            radioGroup.check(R.id.radioButton2);
+        }
 
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener(){
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 if(checkedId == R.id.radioButton) {
                     radioEventListener.themeChange(1);
+                    CHECKED_RADIO1 = true;
                     Log.d(LOG_TAG, "Radio1 click in Fragment");
                 }
                 else if(checkedId == R.id.radioButton2) {
                     radioEventListener.themeChange(2);
+                    CHECKED_RADIO1 = false;
                     Log.d(LOG_TAG, "Radio2 click in Fragment");
                 } else if(checkedId == -1){
                     radioEventListener.themeChange(0);

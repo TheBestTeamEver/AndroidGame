@@ -17,7 +17,8 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="180dp"
         android:onClick="withoutRegistration"
-        android:text="Войти" />
+        android:text="Войти"
+        android:background="@color/colorPrimary" />
 
     <Button
         android:id="@+id/button2"
@@ -27,7 +28,8 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="130dp"
         android:onClick="withoutRegistration"
-        android:text="Войти через Вконтакте" />
+        android:text="Войти через Вконтакте"
+        android:background="@color/colorPrimary" />
 
     <Button
         android:id="@+id/button3"
@@ -37,7 +39,8 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="79dp"
         android:onClick="withoutRegistration"
-        android:text="Не регистрироваться" />
+        android:text="Не регистрироваться"
+        android:background="@color/colorPrimary" />
 
     <EditText
         android:id="@+id/editText1"
@@ -64,5 +67,6 @@
         android:layout_height="wrap_content"
         android:text="Добро пожаловать!"
         android:id="@+id/textView3"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/colorPrimaryDark" />
 </RelativeLayout>

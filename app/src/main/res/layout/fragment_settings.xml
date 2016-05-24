@@ -31,7 +31,7 @@
             android:layout_marginRight="20dp"
             android:width="100dp"
             android:textAlignment="center"
-            android:checked="true"
+            android:checked="false"
             android:clickable="true"
             android:contextClickable="true"
             android:enabled="true" />
@@ -46,7 +46,8 @@
             android:width="100dp"
             android:textAlignment="center"
             android:contextClickable="true"
-            android:clickable="true" />
+            android:clickable="true"
+            android:checked="false" />
 
     </RadioGroup>
 </FrameLayout>
