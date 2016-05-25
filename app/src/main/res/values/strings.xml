@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">game</string>
+    <string name="app_name">WHOIZ</string>
     <string name="title_activity_naw">NawActivity</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
