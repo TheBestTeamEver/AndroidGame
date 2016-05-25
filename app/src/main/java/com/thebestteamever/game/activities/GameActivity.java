@@ -170,6 +170,9 @@ public class GameActivity extends AppCompatActivity implements QuestionServiceHe
                     //total = (int) millisUntilFinished;
                     if(isPause) {
                         isPause = false;
+
+                        timerDisplay.setText("" +
+                                total / MILLIS_PER_SECOND);
                     }
                     timerDisplay.setText("" +
                             millisUntilFinished / MILLIS_PER_SECOND);
