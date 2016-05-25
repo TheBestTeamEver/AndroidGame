@@ -17,5 +17,7 @@
     <string name="fragment_play_explain">Выбрать по имени личность должны Вы, \n Будьте внимательны, трудолюбивы. \n Ошибка Вам будет стоить очков \n И места в рейтинге -  \n Свод правил таков. </string>
 
     <string name="person_name">Person Name</string>
+
+    <string name="_00_30">00:30</string>
 </resources>
 
