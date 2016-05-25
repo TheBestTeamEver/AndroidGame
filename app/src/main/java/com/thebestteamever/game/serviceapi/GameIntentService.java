@@ -41,10 +41,17 @@ public class GameIntentService extends IntentService {
             if (ACTION_LEVEL.equals(action)) {
                 final String text = intent.getStringExtra(EXTRA_LEVEL_TEXT);
                 handleActionLevel(text);
+            } else if (ACTION_TOP.equals(action)) {
+                final String text = intent.getStringExtra(EXTRA_TOP_TEXT);
+                handleActionTop(text);
             } else if (ACTION_REGISTRATION.equals(action)) {
                 final RegistrationParams params = intent.getParcelableExtra(EXTRA_REGISTRATION_TEXT);
                 handleActionRegistration(params);
             }
+//            else if (ACTION_REGISTRATION.equals(action)) {
+//                final RegistrationParams params = intent.getParcelableExtra(EXTRA_REGISTRATION_TEXT);
+//                handleActionRegistration(params);
+//            }
         }
     }
 
@@ -69,7 +76,7 @@ public class GameIntentService extends IntentService {
 
     private void handleActionTop(final String text) {
         try {
-            final String  top = Processor.processTop("kek");
+            final String top = Processor.processTop("kek");
             if (top != null && !top.isEmpty()) {
                 LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(
                         new Intent(ACTION_TOP_RESULT_SUCCESS).putExtra(EXTRA_TOP_RESULT, top)
