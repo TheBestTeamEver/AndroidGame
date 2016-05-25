@@ -1,6 +1,15 @@
 package com.thebestteamever.game.serviceapi;
 
+import android.content.ContentResolver;
+import android.content.ContentUris;
+import android.content.ContentValues;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.net.Uri;
+import android.os.Bundle;
+import android.util.Log;
+import android.widget.SimpleCursorAdapter;
+import android.content.Context;
 
 import java.io.IOException;
 import java.util.List;
@@ -10,6 +19,15 @@ import com.google.gson.Gson;
 import com.thebestteamever.game.Level;
 
 public class Processor {
+
+    static final String LOG_TAG = "myLogs";
+
+    static final Uri RATING_URI = Uri
+            .parse("content://com.thebestteamever.game.Rating/rating");
+
+    static final String USER_NAME = "name";
+    static final String USER_RATING = "rating";
+
     private static final int COUNT_LEVELS = 10;
     private static int level = 0;
     private static RandomLevels msg = null;
@@ -41,6 +59,17 @@ public class Processor {
 
         if (msg != null) {
             List topList = msg.getTopList();
+            TopListMock topListMock = new TopListMock();
+            ContentValues cv = new ContentValues();
+            ContentResolver cr = CoreLib.ContentResolver();
+
+            for(int i = 0; i < 3; i++) {
+                cv.put(USER_NAME, topListMock.testMap().get(i).get("login"));
+                cv.put(USER_RATING, topListMock.testMap().get(i).get("rating"));
+                Uri newUri = cr.insert(RATING_URI, cv);
+                Log.d(LOG_TAG, "insert, result Uri : " + newUri.toString());
+            }
+
             return "Ok";
         }
 
