@@ -16,7 +16,6 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="180dp"
-        android:onClick="withoutRegistration"
         android:text="Войти" />
 
     <Button
@@ -26,8 +25,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="130dp"
-        android:onClick="withoutRegistration"
-        android:text="Войти через Вконтакте" />
+        android:text="Зарегистрироваться" />
 
     <Button
         android:id="@+id/button3"
@@ -36,7 +34,6 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="79dp"
-        android:onClick="withoutRegistration"
         android:text="Не регистрироваться" />
 
     <EditText

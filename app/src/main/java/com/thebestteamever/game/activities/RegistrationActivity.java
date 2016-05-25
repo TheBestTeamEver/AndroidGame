@@ -48,7 +48,8 @@ public class RegistrationActivity extends AppCompatActivity implements ServiceHe
 
         switch (result) {
             case "Ok":
-                // TODO
+                Intent intent = new Intent(this, NawActivity.class);
+                startActivity(intent);
                 break;
             case "Login is already used":
                 // TODO

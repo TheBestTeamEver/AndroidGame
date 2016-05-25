@@ -16,6 +16,7 @@ public class ServiceHelper {
     private static Map<Integer, LevelResultListener> levelListeners = new Hashtable<>();
     private static Map<Integer, TopResultListener> topListeners = new Hashtable<>();
     private static Map<Integer, RegistrationResultListener> registrationListeners = new Hashtable<>();
+    private static Map<Integer, LoginResultListener> loginListeners = new Hashtable<>();
 
     public static int makeLevel(final Context context, final String text, final LevelResultListener listener) {
         final IntentFilter filter = new IntentFilter();
@@ -97,6 +98,32 @@ public class ServiceHelper {
 
         return mIdCounter++;
     }
+    public static int makeLogin (final Context context, final LoginParams params, final LoginResultListener listener) {
+        final IntentFilter filter = new IntentFilter();
+        filter.addAction(GameIntentService.ACTION_LOGIN_RESULT_SUCCESS);
+        filter.addAction(GameIntentService.ACTION_LOGIN_RESULT_ERROR);
+
+        LocalBroadcastManager.getInstance(context).registerReceiver(new BroadcastReceiver() {
+            @Override
+            public void onReceive(final Context context, final Intent intent) {
+                final String result = intent.getStringExtra(GameIntentService.EXTRA_LOGIN_RESULT);
+                final boolean success = intent.getAction().equals(GameIntentService.ACTION_LOGIN_RESULT_SUCCESS);
+                for (Map.Entry<Integer, LoginResultListener> pair : loginListeners.entrySet()) {
+                    pair.getValue().onLoginResult(success, result);
+                }
+                loginListeners.clear();
+            }
+        }, filter);
+
+        loginListeners.put(mIdCounter, listener);
+
+        Intent intent = new Intent(context, GameIntentService.class);
+        intent.setAction(GameIntentService.ACTION_LOGIN);
+        intent.putExtra(GameIntentService.EXTRA_LOGIN_TEXT, params);
+        context.startService(intent);
+
+        return mIdCounter++;
+    }
 
     public static void removeLevelListener(final int id) {
         levelListeners.remove(id);
@@ -110,6 +137,10 @@ public class ServiceHelper {
         levelListeners.remove(id);
     }
 
+    public static void removeLoginListener(final int id) {
+        levelListeners.remove(id);
+    }
+
     public interface LevelResultListener {
         void onLevelResult(final boolean success, final Level result);
     }
@@ -120,5 +151,9 @@ public class ServiceHelper {
 
     public interface RegistrationResultListener {
         void onRegistrationResult(final boolean success, final String result);
+    }
+
+    public interface LoginResultListener {
+        void onLoginResult(final boolean success, final String result);
     }
 }

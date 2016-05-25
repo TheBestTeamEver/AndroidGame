@@ -30,6 +30,13 @@ public class GameIntentService extends IntentService {
     public final static String ACTION_REGISTRATION_RESULT_ERROR = "action.ACTION_REGISTRATION_RESULT_ERROR";
     public final static String EXTRA_REGISTRATION_RESULT = "extra.REGISTRATION_RESULT";
 
+    public final static String ACTION_LOGIN = "action.LOGIN";
+    public final static String EXTRA_LOGIN_TEXT = "extra.LOGIN_TEXT";
+
+    public static final String ACTION_LOGIN_RESULT_SUCCESS = "action.ACTION_LOGIN_RESULT_SUCCESS";
+    public final static String ACTION_LOGIN_RESULT_ERROR = "action.ACTION_LOGIN_RESULT_ERROR";
+    public final static String EXTRA_LOGIN_RESULT = "extra.LOGIN_RESULT";
+
     public GameIntentService() {
         super("GameIntentService");
     }
@@ -48,10 +55,10 @@ public class GameIntentService extends IntentService {
                 final RegistrationParams params = intent.getParcelableExtra(EXTRA_REGISTRATION_TEXT);
                 handleActionRegistration(params);
             }
-//            else if (ACTION_REGISTRATION.equals(action)) {
-//                final RegistrationParams params = intent.getParcelableExtra(EXTRA_REGISTRATION_TEXT);
-//                handleActionRegistration(params);
-//            }
+            else if (ACTION_LOGIN.equals(action)) {
+                final LoginParams params = intent.getParcelableExtra(EXTRA_LOGIN_TEXT);
+                handleActionLogin(params);
+            }
         }
     }
 
@@ -111,22 +118,22 @@ public class GameIntentService extends IntentService {
             );
         }
     }
-//    private void handleActionAuth(final RegistrationParams params) {
-//        try {
-//            final String registration = Processor.processRegistration(params);
-//            if (registration != null && !registration.isEmpty()) {
-//                LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(
-//                        new Intent(ACTION_REGISTRATION_RESULT_SUCCESS).putExtra(EXTRA_REGISTRATION_RESULT, registration)
-//                );
-//            } else {
-//                LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(
-//                        new Intent(ACTION_REGISTRATION_RESULT_ERROR).putExtra(EXTRA_REGISTRATION_RESULT, "result is null")
-//                );
-//            }
-//        } catch (IOException ex) {
-//            LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(
-//                    new Intent(ACTION_REGISTRATION_RESULT_ERROR).putExtra(EXTRA_REGISTRATION_RESULT, ex.getMessage())
-//            );
-//        }
-//    }
+    private void handleActionLogin(final LoginParams params) {
+        try {
+            final String login = Processor.processLogin(params);
+            if (login != null && !login.isEmpty()) {
+                LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(
+                        new Intent(ACTION_LOGIN_RESULT_SUCCESS).putExtra(EXTRA_LOGIN_RESULT, login)
+                );
+            } else {
+                LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(
+                        new Intent(ACTION_LOGIN_RESULT_ERROR).putExtra(EXTRA_LOGIN_RESULT, "result is null")
+                );
+            }
+        } catch (IOException ex) {
+            LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(
+                    new Intent(ACTION_LOGIN_RESULT_ERROR).putExtra(EXTRA_LOGIN_RESULT, ex.getMessage())
+            );
+        }
+    }
 }

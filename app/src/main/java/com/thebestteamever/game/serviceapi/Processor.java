@@ -64,6 +64,20 @@ public class Processor {
         return null;
     }
 
+    public static String processLogin(LoginParams params) throws IOException {
+
+        String postParams = "login=" + params.getLogin() + "&password=" + params.getPassword();
+
+        String data = new Rest().postJSON("http://91.218.230.80/api/authentication/", 15000, postParams);
+        RegistrationRequest msg = new Gson().fromJson(data, RegistrationRequest.class);
+
+        if (msg != null) {
+            return msg.getData();
+        }
+
+        return null;
+    }
+
     class TopResponse {
         private LinkedList<HashMap<String, String>> data;
 
