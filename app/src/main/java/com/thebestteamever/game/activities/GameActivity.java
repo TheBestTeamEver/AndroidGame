@@ -35,6 +35,8 @@ public class GameActivity extends AppCompatActivity implements ServiceHelper.Lev
     private static final int SECONDS_TO_COUNTDOWN = 30;
     private TextView timerDisplay;
     private CountDownTimer timer;
+    private long total = 30000;
+    boolean isPause = false;
 
 
     @Override
@@ -68,6 +70,8 @@ public class GameActivity extends AppCompatActivity implements ServiceHelper.Lev
     public void onLevelResult(boolean success, Level result) {
 
         progressBar.setVisibility(View.INVISIBLE);
+        startTimer();
+
         if (success && result != null) {
             this.level = result;
             refreshLevel();
@@ -77,17 +81,18 @@ public class GameActivity extends AppCompatActivity implements ServiceHelper.Lev
 
     public void startGame() {
         // TODO: start game
-        showTimer(SECONDS_TO_COUNTDOWN * MILLIS_PER_SECOND);
+        showTimer();
         getNextLevel();
     }
 
     public void getNextLevel() {
-        if (count == MAX_LEVEL) {
-            finishGame();
-        }
+//        if (count == MAX_LEVEL) {
+//            finishGame();
+//        }
 
         requestId = ServiceHelper.makeLevel(this, "KEK", this);
         progressBar.setVisibility(View.VISIBLE);
+        //unPauseTimer(getCurCountdown());
         count++;
     }
 
@@ -151,19 +156,49 @@ public class GameActivity extends AppCompatActivity implements ServiceHelper.Lev
         finish();
     }
 
-    private void showTimer(int countdownMillis) {
+    private void showTimer() {
         if(timer != null) { timer.cancel(); }
-        timer = new CountDownTimer(countdownMillis, MILLIS_PER_SECOND) {
+        timer = new CountDownTimer(total, MILLIS_PER_SECOND) {
             @Override
             public void onTick(long millisUntilFinished) {
-                timerDisplay.setText("" +
-                        millisUntilFinished / MILLIS_PER_SECOND);
+                if(progressBar.isShown()) {
+                    if(!isPause) {
+                        total = millisUntilFinished;
+                        isPause = true;
+                    }
+                } else {
+                    //total = (int) millisUntilFinished;
+                    if(isPause) {
+                        isPause = false;
+
+                        timerDisplay.setText("" +
+                                total / MILLIS_PER_SECOND);
+                    }
+                    timerDisplay.setText("" +
+                            millisUntilFinished / MILLIS_PER_SECOND);
+                }
             }
             @Override
             public void onFinish() {
-                timerDisplay.setText("KABOOM!");
+                finishGame();
+
             }
         }.start();
     }
 
+//    private void pauseTimer() {
+//        timer.cancel();
+//    }
+
+    private void startTimer() {
+        showTimer();
+    }
+
+//    private long getCurCountdown() {
+//        return curCountdown;
+//    }
+
+//    private void setCurCountdown(long curCountdown) {
+//        this.curCountdown = curCountdown;
+//    }
 }
