@@ -30,7 +30,13 @@
             android:exported="false" />
 
         <activity android:name=".activities.GameOverActivity" />
-        <activity android:name=".activities.RegistrationActivity"></activity>
+        <activity android:name=".activities.RegistrationActivity" />
+
+        <provider
+            android:name=".MyContentProvider"
+            android:authorities="com.thebestteamever.game.Rating"
+            android:enabled="true"
+            android:exported="true"></provider>
     </application>
 
 </manifest>

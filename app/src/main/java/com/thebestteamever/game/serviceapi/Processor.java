@@ -1,8 +1,13 @@
 package com.thebestteamever.game.serviceapi;
 
+import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.graphics.Bitmap;
+import android.net.Uri;
+import android.util.Log;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 
@@ -10,6 +15,16 @@ import com.google.gson.Gson;
 import com.thebestteamever.game.Level;
 
 public class Processor {
+
+    static final String LOG_TAG = "myLogs";
+
+    static final Uri RATING_URI = Uri
+            .parse("content://com.thebestteamever.game.Rating/rating");
+
+    static final String USER_NAME = "name";
+    static final String USER_RATING = "rating";
+
+
     private static final int COUNT_LEVELS = 10;
     private static int level = 0;
     private static RandomLevels msg = null;
@@ -40,8 +55,18 @@ public class Processor {
         TopResponse msg = new Gson().fromJson(data, TopResponse.class);
 
         if (msg != null) {
-            LinkedList topList = msg.getData();
-            // TODO
+            ArrayList<HashMap<String, String>> topList = msg.getData();
+            ContentValues cv = new ContentValues();
+            ContentResolver cr = CoreLib.ContentResolver();
+            int n = topList.size();
+            String login = topList.get(0).get("login");
+            for(int i = 0; i < n; i++) {
+                cv.put(USER_NAME, topList.get(i).get("login"));
+                cv.put(USER_RATING, topList.get(i).get("rating"));
+                Uri newUri = cr.insert(RATING_URI, cv);
+                Log.d(LOG_TAG, "insert, result Uri : " + newUri.toString());
+            }
+
 
             return "Ok";
         }
@@ -65,9 +90,9 @@ public class Processor {
     }
 
     class TopResponse {
-        private LinkedList<HashMap<String, String>> data;
+        private ArrayList<HashMap<String, String>> data;
 
-        public LinkedList getData() {
+        public ArrayList getData() {
             return data;
         }
     }
