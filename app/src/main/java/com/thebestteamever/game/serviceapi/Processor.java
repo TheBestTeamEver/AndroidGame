@@ -3,8 +3,8 @@ package com.thebestteamever.game.serviceapi;
 import android.graphics.Bitmap;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.Map;
+import java.util.HashMap;
+import java.util.LinkedList;
 
 import com.google.gson.Gson;
 import com.thebestteamever.game.Level;
@@ -40,7 +40,9 @@ public class Processor {
         TopResponse msg = new Gson().fromJson(data, TopResponse.class);
 
         if (msg != null) {
-            List topList = msg.getTopList();
+            LinkedList topList = msg.getData();
+            // TODO
+
             return "Ok";
         }
 
@@ -63,10 +65,10 @@ public class Processor {
     }
 
     class TopResponse {
-        private List<Map<String, String>> topList;
+        private LinkedList<HashMap<String, String>> data;
 
-        public List getTopList() {
-            return topList;
+        public LinkedList getData() {
+            return data;
         }
     }
 

@@ -5,27 +5,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.thebestteamever.game.R;
+import com.thebestteamever.game.serviceapi.ServiceHelper;
 
-public class PreActivity extends AppCompatActivity {
+public class PreActivity extends AppCompatActivity implements ServiceHelper.TopResultListener{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pre);
 
-        Thread splash_time = new Thread() {
-            public void run() {
-                try {
-                    sleep(2000); //общение с серваком в будущем
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } finally {
-                    startActivity(new Intent(PreActivity.this, RegistrationActivity.class));
-                    finish();
-                }
-            }
-        };
+        int requestId = ServiceHelper.makeTop(this, "top", this);
+    }
 
-        splash_time.start();
+    @Override
+    public void onTopResult(boolean success, String result) {
+        startActivity(new Intent(PreActivity.this, RegistrationActivity.class));
+        finish();
     }
 }
