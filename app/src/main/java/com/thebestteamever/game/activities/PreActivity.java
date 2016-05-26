@@ -19,7 +19,7 @@ public class PreActivity extends AppCompatActivity implements ServiceHelper.TopR
 
     @Override
     public void onTopResult(boolean success, String result) {
-        startActivity(new Intent(PreActivity.this, RegistrationActivity.class));
+        startActivity(new Intent(PreActivity.this, LoginActivity.class));
         finish();
     }
 }
