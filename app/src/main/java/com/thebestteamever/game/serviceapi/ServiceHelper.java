@@ -6,7 +6,8 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.support.v4.content.LocalBroadcastManager;
 
-import com.thebestteamever.game.Level;
+import com.thebestteamever.game.serviceapi.parcelable.Level;
+import com.thebestteamever.game.serviceapi.parcelable.LoginParams;
 
 import java.util.Hashtable;
 import java.util.Map;
@@ -15,7 +16,6 @@ public class ServiceHelper {
     private static int mIdCounter = 1;
     private static Map<Integer, LevelResultListener> levelListeners = new Hashtable<>();
     private static Map<Integer, TopResultListener> topListeners = new Hashtable<>();
-    private static Map<Integer, RegistrationResultListener> registrationListeners = new Hashtable<>();
     private static Map<Integer, LoginResultListener> loginListeners = new Hashtable<>();
 
     public static int makeLevel(final Context context, final String text, final LevelResultListener listener) {
@@ -72,32 +72,6 @@ public class ServiceHelper {
         return mIdCounter++;
     }
 
-    public static int makeRegistration(final Context context, final RegistrationParams params, final RegistrationResultListener listener) {
-        final IntentFilter filter = new IntentFilter();
-        filter.addAction(GameIntentService.ACTION_REGISTRATION_RESULT_SUCCESS);
-        filter.addAction(GameIntentService.ACTION_REGISTRATION_RESULT_ERROR);
-
-        LocalBroadcastManager.getInstance(context).registerReceiver(new BroadcastReceiver() {
-            @Override
-            public void onReceive(final Context context, final Intent intent) {
-                final String result = intent.getStringExtra(GameIntentService.EXTRA_REGISTRATION_RESULT);
-                final boolean success = intent.getAction().equals(GameIntentService.ACTION_REGISTRATION_RESULT_SUCCESS);
-                for (Map.Entry<Integer, RegistrationResultListener> pair : registrationListeners.entrySet()) {
-                    pair.getValue().onRegistrationResult(success, result);
-                }
-                registrationListeners.clear();
-            }
-        }, filter);
-
-        registrationListeners.put(mIdCounter, listener);
-
-        Intent intent = new Intent(context, GameIntentService.class);
-        intent.setAction(GameIntentService.ACTION_REGISTRATION);
-        intent.putExtra(GameIntentService.EXTRA_REGISTRATION_TEXT, params);
-        context.startService(intent);
-
-        return mIdCounter++;
-    }
     public static int makeLogin (final Context context, final LoginParams params, final LoginResultListener listener) {
         final IntentFilter filter = new IntentFilter();
         filter.addAction(GameIntentService.ACTION_LOGIN_RESULT_SUCCESS);
@@ -133,10 +107,6 @@ public class ServiceHelper {
         topListeners.remove(id);
     }
 
-    public static void removeRegistrationListener(final int id) {
-        levelListeners.remove(id);
-    }
-
     public static void removeLoginListener(final int id) {
         levelListeners.remove(id);
     }
@@ -147,10 +117,6 @@ public class ServiceHelper {
 
     public interface TopResultListener {
         void onTopResult(final boolean success, final String result);
-    }
-
-    public interface RegistrationResultListener {
-        void onRegistrationResult(final boolean success, final String result);
     }
 
     public interface LoginResultListener {

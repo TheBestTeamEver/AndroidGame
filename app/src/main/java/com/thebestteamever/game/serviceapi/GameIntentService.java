@@ -4,35 +4,26 @@ import android.app.IntentService;
 import android.content.Intent;
 import android.support.v4.content.LocalBroadcastManager;
 
-import com.thebestteamever.game.Level;
+import com.thebestteamever.game.serviceapi.parcelable.Level;
+import com.thebestteamever.game.serviceapi.parcelable.LoginParams;
 
 import java.io.IOException;
 
 public class GameIntentService extends IntentService {
     public final static String ACTION_LEVEL = "action.LEVEL";
     public final static String EXTRA_LEVEL_TEXT = "extra.LEVEL_TEXT";
-
     public final static String ACTION_LEVEL_RESULT_SUCCESS = "action.ACTION_LEVEL_RESULT_SUCCESS";
     public final static String ACTION_LEVEL_RESULT_ERROR = "action.ACTION_LEVEL_RESULT_ERROR";
     public final static String EXTRA_LEVEL_RESULT = "extra.LEVEL_RESULT";
 
     public final static String ACTION_TOP = "action.TOP";
     public final static String EXTRA_TOP_TEXT = "extra.TOP_TEXT";
-
     public final static String ACTION_TOP_RESULT_SUCCESS = "action.ACTION_TOP_RESULT_SUCCESS";
     public final static String ACTION_TOP_RESULT_ERROR = "action.ACTION_TOP_RESULT_ERROR";
     public final static String EXTRA_TOP_RESULT = "extra.TOP_RESULT";
 
-    public final static String ACTION_REGISTRATION = "action.REGISTRATION";
-    public final static String EXTRA_REGISTRATION_TEXT = "extra.REGISTRATION_TEXT";
-
-    public static final String ACTION_REGISTRATION_RESULT_SUCCESS = "action.ACTION_REGISTRATION_RESULT_SUCCESS";
-    public final static String ACTION_REGISTRATION_RESULT_ERROR = "action.ACTION_REGISTRATION_RESULT_ERROR";
-    public final static String EXTRA_REGISTRATION_RESULT = "extra.REGISTRATION_RESULT";
-
     public final static String ACTION_LOGIN = "action.LOGIN";
     public final static String EXTRA_LOGIN_TEXT = "extra.LOGIN_TEXT";
-
     public static final String ACTION_LOGIN_RESULT_SUCCESS = "action.ACTION_LOGIN_RESULT_SUCCESS";
     public final static String ACTION_LOGIN_RESULT_ERROR = "action.ACTION_LOGIN_RESULT_ERROR";
     public final static String EXTRA_LOGIN_RESULT = "extra.LOGIN_RESULT";
@@ -51,11 +42,7 @@ public class GameIntentService extends IntentService {
             } else if (ACTION_TOP.equals(action)) {
                 final String text = intent.getStringExtra(EXTRA_TOP_TEXT);
                 handleActionTop(text);
-            } else if (ACTION_REGISTRATION.equals(action)) {
-                final RegistrationParams params = intent.getParcelableExtra(EXTRA_REGISTRATION_TEXT);
-                handleActionRegistration(params);
-            }
-            else if (ACTION_LOGIN.equals(action)) {
+            } else if (ACTION_LOGIN.equals(action)) {
                 final LoginParams params = intent.getParcelableExtra(EXTRA_LOGIN_TEXT);
                 handleActionLogin(params);
             }
@@ -100,24 +87,6 @@ public class GameIntentService extends IntentService {
         }
     }
 
-    private void handleActionRegistration(final RegistrationParams params) {
-        try {
-            final String registration = Processor.processRegistration(params);
-            if (registration != null && !registration.isEmpty()) {
-                LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(
-                        new Intent(ACTION_REGISTRATION_RESULT_SUCCESS).putExtra(EXTRA_REGISTRATION_RESULT, registration)
-                );
-            } else {
-                LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(
-                        new Intent(ACTION_REGISTRATION_RESULT_ERROR).putExtra(EXTRA_REGISTRATION_RESULT, "result is null")
-                );
-            }
-        } catch (IOException ex) {
-            LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(
-                    new Intent(ACTION_REGISTRATION_RESULT_ERROR).putExtra(EXTRA_REGISTRATION_RESULT, ex.getMessage())
-            );
-        }
-    }
     private void handleActionLogin(final LoginParams params) {
         try {
             final String login = Processor.processLogin(params);

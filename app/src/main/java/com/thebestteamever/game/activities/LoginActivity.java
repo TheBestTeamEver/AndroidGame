@@ -9,8 +9,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 
 import com.thebestteamever.game.R;
-import com.thebestteamever.game.serviceapi.LoginParams;
-import com.thebestteamever.game.serviceapi.RegistrationParams;
+import com.thebestteamever.game.serviceapi.parcelable.LoginParams;
 import com.thebestteamever.game.serviceapi.ServiceHelper;
 
 public class LoginActivity extends AppCompatActivity implements ServiceHelper.LoginResultListener, View.OnClickListener {

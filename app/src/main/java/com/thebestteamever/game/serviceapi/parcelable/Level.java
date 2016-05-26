@@ -1,4 +1,4 @@
-package com.thebestteamever.game;
+package com.thebestteamever.game.serviceapi.parcelable;
 
 /**
  * Created by alexss8 on 10.05.2016.

@@ -2,9 +2,7 @@ package com.thebestteamever.game.activities;
 
 import android.content.Intent;
 import android.os.CountDownTimer;
-import android.os.SystemClock;
 import android.os.Vibrator;
-import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -12,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.thebestteamever.game.Level;
+import com.thebestteamever.game.serviceapi.parcelable.Level;
 import com.thebestteamever.game.R;
 import com.thebestteamever.game.serviceapi.ServiceHelper;
 

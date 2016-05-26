@@ -1,4 +1,4 @@
-package com.thebestteamever.game.serviceapi;
+package com.thebestteamever.game.serviceapi.parcelable;
 
 import android.os.Parcel;
 import android.os.Parcelable;

@@ -3,21 +3,23 @@ package com.thebestteamever.game.serviceapi;
 import android.graphics.Bitmap;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 
 import com.google.gson.Gson;
-import com.thebestteamever.game.Level;
+import com.thebestteamever.game.serviceapi.parcelable.Level;
+import com.thebestteamever.game.serviceapi.parcelable.LoginParams;
 
 public class Processor {
     private static final int COUNT_LEVELS = 10;
     private static int level = 0;
-    private static RandomLevels msg = null;
+    private static DataResponse msg = null;
 
     public static Level processLevel(final String text) throws IOException {
         if (level == 0) {
             String data = new Rest().getJSON("http://91.218.230.80/api/get_random_urls/", 15000);
-            msg = new Gson().fromJson(data, RandomLevels.class);
+            msg = new Gson().fromJson(data, DataResponse.class);
         }
         if (msg != null) {
             String firstImageUrl = "http://91.218.230.80" + msg.getData().get(level).get("true_photo");
@@ -37,28 +39,13 @@ public class Processor {
 
     public static String processTop(final String text) throws IOException {
         String data = new Rest().getJSON("http://91.218.230.80/api/get_top/", 15000);
-        TopResponse msg = new Gson().fromJson(data, TopResponse.class);
+        DataResponse msg = new Gson().fromJson(data, DataResponse.class);
 
         if (msg != null) {
-            LinkedList topList = msg.getData();
+            ArrayList topList = msg.getData();
             // TODO
 
             return "Ok";
-        }
-
-        return null;
-    }
-
-
-    public static String processRegistration(RegistrationParams params) throws IOException {
-
-        String postParams = "name=" + params.getFirstName() + "&login=" + params.getLogin() + "&password=" + params.getPassword();
-
-        String data = new Rest().postJSON("http://91.218.230.80/api/registration/", 15000, postParams);
-        RegistrationRequest msg = new Gson().fromJson(data, RegistrationRequest.class);
-
-        if (msg != null) {
-            return msg.getData();
         }
 
         return null;
@@ -69,7 +56,7 @@ public class Processor {
         String postParams = "login=" + params.getLogin() + "&password=" + params.getPassword();
 
         String data = new Rest().postJSON("http://91.218.230.80/api/authentication/", 15000, postParams);
-        RegistrationRequest msg = new Gson().fromJson(data, RegistrationRequest.class);
+        LoginRequest msg = new Gson().fromJson(data, LoginRequest.class);
 
         if (msg != null) {
             return msg.getData();
@@ -78,15 +65,17 @@ public class Processor {
         return null;
     }
 
-    class TopResponse {
-        private LinkedList<HashMap<String, String>> data;
 
-        public LinkedList getData() {
+    public class DataResponse {
+
+        private ArrayList<HashMap<String,String>> data;
+
+        public ArrayList<HashMap<String, String>> getData() {
             return data;
         }
     }
 
-    class RegistrationRequest {
+    class LoginRequest {
         private String data;
 
         public String getData() {
