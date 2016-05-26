@@ -10,6 +10,7 @@ import java.util.LinkedList;
 import com.google.gson.Gson;
 import com.thebestteamever.game.serviceapi.parcelable.Level;
 import com.thebestteamever.game.serviceapi.parcelable.LoginParams;
+import com.thebestteamever.game.serviceapi.parcelable.Score;
 
 public class Processor {
     private static final int COUNT_LEVELS = 10;
@@ -56,6 +57,20 @@ public class Processor {
         String postParams = "login=" + params.getLogin() + "&password=" + params.getPassword();
 
         String data = new Rest().postJSON("http://91.218.230.80/api/authentication/", 15000, postParams);
+        LoginRequest msg = new Gson().fromJson(data, LoginRequest.class);
+
+        if (msg != null) {
+            return msg.getData();
+        }
+
+        return null;
+    }
+
+    public static String processScore(Score params) throws IOException {
+
+        String postParams = "login=" + params.getLogin() + "&score=" + params.getScore();
+
+        String data = new Rest().postJSON("http://91.218.230.80/api/put_score/", 15000, postParams);
         LoginRequest msg = new Gson().fromJson(data, LoginRequest.class);
 
         if (msg != null) {

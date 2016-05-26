@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.support.v4.content.LocalBroadcastManager;
 
+import com.thebestteamever.game.serviceapi.parcelable.Score;
 import com.thebestteamever.game.serviceapi.parcelable.Level;
 import com.thebestteamever.game.serviceapi.parcelable.LoginParams;
 
@@ -17,6 +18,7 @@ public class ServiceHelper {
     private static Map<Integer, LevelResultListener> levelListeners = new Hashtable<>();
     private static Map<Integer, TopResultListener> topListeners = new Hashtable<>();
     private static Map<Integer, LoginResultListener> loginListeners = new Hashtable<>();
+    private static Map<Integer, ScoreResultListener> scoreListeners = new Hashtable<>();
 
     public static int makeLevel(final Context context, final String text, final LevelResultListener listener) {
         final IntentFilter filter = new IntentFilter();
@@ -99,6 +101,33 @@ public class ServiceHelper {
         return mIdCounter++;
     }
 
+    public static int makeScore (final Context context, final Score params, final ScoreResultListener listener) {
+        final IntentFilter filter = new IntentFilter();
+        filter.addAction(GameService.ACTION_SCORE_RESULT_SUCCESS);
+        filter.addAction(GameService.ACTION_SCORE_RESULT_ERROR);
+
+        LocalBroadcastManager.getInstance(context).registerReceiver(new BroadcastReceiver() {
+            @Override
+            public void onReceive(final Context context, final Intent intent) {
+                final String result = intent.getStringExtra(GameService.EXTRA_SCORE_RESULT);
+                final boolean success = intent.getAction().equals(GameService.ACTION_SCORE_RESULT_SUCCESS);
+                for (Map.Entry<Integer, ScoreResultListener> pair : scoreListeners.entrySet()) {
+                    pair.getValue().onScoreResult(success, result);
+                }
+                scoreListeners.clear();
+            }
+        }, filter);
+
+        scoreListeners.put(mIdCounter, listener);
+
+        Intent intent = new Intent(context, GameService.class);
+        intent.setAction(GameService.ACTION_SCORE);
+        intent.putExtra(GameService.EXTRA_SCORE_TEXT, params);
+        context.startService(intent);
+
+        return mIdCounter++;
+    }
+
     public static void removeLevelListener(final int id) {
         levelListeners.remove(id);
     }
@@ -121,5 +150,9 @@ public class ServiceHelper {
 
     public interface LoginResultListener {
         void onLoginResult(final boolean success, final String result);
+    }
+
+    public interface ScoreResultListener {
+        void onScoreResult(final boolean success, final String result);
     }
 }
