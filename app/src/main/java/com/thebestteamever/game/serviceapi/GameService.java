@@ -9,7 +9,7 @@ import com.thebestteamever.game.serviceapi.parcelable.LoginParams;
 
 import java.io.IOException;
 
-public class GameIntentService extends IntentService {
+public class GameService extends IntentService {
     public final static String ACTION_LEVEL = "action.LEVEL";
     public final static String EXTRA_LEVEL_TEXT = "extra.LEVEL_TEXT";
     public final static String ACTION_LEVEL_RESULT_SUCCESS = "action.ACTION_LEVEL_RESULT_SUCCESS";
@@ -28,8 +28,8 @@ public class GameIntentService extends IntentService {
     public final static String ACTION_LOGIN_RESULT_ERROR = "action.ACTION_LOGIN_RESULT_ERROR";
     public final static String EXTRA_LOGIN_RESULT = "extra.LOGIN_RESULT";
 
-    public GameIntentService() {
-        super("GameIntentService");
+    public GameService() {
+        super("GameService");
     }
 
     @Override

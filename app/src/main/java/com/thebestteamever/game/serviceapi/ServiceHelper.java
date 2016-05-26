@@ -20,14 +20,14 @@ public class ServiceHelper {
 
     public static int makeLevel(final Context context, final String text, final LevelResultListener listener) {
         final IntentFilter filter = new IntentFilter();
-        filter.addAction(GameIntentService.ACTION_LEVEL_RESULT_SUCCESS);
-        filter.addAction(GameIntentService.ACTION_LEVEL_RESULT_ERROR);
+        filter.addAction(GameService.ACTION_LEVEL_RESULT_SUCCESS);
+        filter.addAction(GameService.ACTION_LEVEL_RESULT_ERROR);
 
         LocalBroadcastManager.getInstance(context).registerReceiver(new BroadcastReceiver() {
             @Override
             public void onReceive(final Context context, final Intent intent) {
-                final Level result = intent.getParcelableExtra(GameIntentService.EXTRA_LEVEL_RESULT);
-                final boolean success = intent.getAction().equals(GameIntentService.ACTION_LEVEL_RESULT_SUCCESS);
+                final Level result = intent.getParcelableExtra(GameService.EXTRA_LEVEL_RESULT);
+                final boolean success = intent.getAction().equals(GameService.ACTION_LEVEL_RESULT_SUCCESS);
                 for (Map.Entry<Integer, LevelResultListener> pair : levelListeners.entrySet()) {
                     pair.getValue().onLevelResult(success, result);
                 }
@@ -37,9 +37,9 @@ public class ServiceHelper {
 
         levelListeners.put(mIdCounter, listener);
 
-        Intent intent = new Intent(context, GameIntentService.class);
-        intent.setAction(GameIntentService.ACTION_LEVEL);
-        intent.putExtra(GameIntentService.EXTRA_LEVEL_TEXT, text);
+        Intent intent = new Intent(context, GameService.class);
+        intent.setAction(GameService.ACTION_LEVEL);
+        intent.putExtra(GameService.EXTRA_LEVEL_TEXT, text);
         context.startService(intent);
 
         return mIdCounter++;
@@ -47,14 +47,14 @@ public class ServiceHelper {
 
     public static int makeTop(final Context context, final String text, final TopResultListener listener) {
         final IntentFilter filter = new IntentFilter();
-        filter.addAction(GameIntentService.ACTION_TOP_RESULT_SUCCESS);
-        filter.addAction(GameIntentService.ACTION_TOP_RESULT_ERROR);
+        filter.addAction(GameService.ACTION_TOP_RESULT_SUCCESS);
+        filter.addAction(GameService.ACTION_TOP_RESULT_ERROR);
 
         LocalBroadcastManager.getInstance(context).registerReceiver(new BroadcastReceiver() {
             @Override
             public void onReceive(final Context context, final Intent intent) {
-                final String result = intent.getStringExtra(GameIntentService.EXTRA_TOP_RESULT);
-                final boolean success = intent.getAction().equals(GameIntentService.ACTION_TOP_RESULT_SUCCESS);
+                final String result = intent.getStringExtra(GameService.EXTRA_TOP_RESULT);
+                final boolean success = intent.getAction().equals(GameService.ACTION_TOP_RESULT_SUCCESS);
                 for (Map.Entry<Integer, TopResultListener> pair : topListeners.entrySet()) {
                     pair.getValue().onTopResult(success, result);
                 }
@@ -64,9 +64,9 @@ public class ServiceHelper {
 
         topListeners.put(mIdCounter, listener);
 
-        Intent intent = new Intent(context, GameIntentService.class);
-        intent.setAction(GameIntentService.ACTION_TOP);
-        intent.putExtra(GameIntentService.EXTRA_TOP_TEXT, text);
+        Intent intent = new Intent(context, GameService.class);
+        intent.setAction(GameService.ACTION_TOP);
+        intent.putExtra(GameService.EXTRA_TOP_TEXT, text);
         context.startService(intent);
 
         return mIdCounter++;
@@ -74,14 +74,14 @@ public class ServiceHelper {
 
     public static int makeLogin (final Context context, final LoginParams params, final LoginResultListener listener) {
         final IntentFilter filter = new IntentFilter();
-        filter.addAction(GameIntentService.ACTION_LOGIN_RESULT_SUCCESS);
-        filter.addAction(GameIntentService.ACTION_LOGIN_RESULT_ERROR);
+        filter.addAction(GameService.ACTION_LOGIN_RESULT_SUCCESS);
+        filter.addAction(GameService.ACTION_LOGIN_RESULT_ERROR);
 
         LocalBroadcastManager.getInstance(context).registerReceiver(new BroadcastReceiver() {
             @Override
             public void onReceive(final Context context, final Intent intent) {
-                final String result = intent.getStringExtra(GameIntentService.EXTRA_LOGIN_RESULT);
-                final boolean success = intent.getAction().equals(GameIntentService.ACTION_LOGIN_RESULT_SUCCESS);
+                final String result = intent.getStringExtra(GameService.EXTRA_LOGIN_RESULT);
+                final boolean success = intent.getAction().equals(GameService.ACTION_LOGIN_RESULT_SUCCESS);
                 for (Map.Entry<Integer, LoginResultListener> pair : loginListeners.entrySet()) {
                     pair.getValue().onLoginResult(success, result);
                 }
@@ -91,9 +91,9 @@ public class ServiceHelper {
 
         loginListeners.put(mIdCounter, listener);
 
-        Intent intent = new Intent(context, GameIntentService.class);
-        intent.setAction(GameIntentService.ACTION_LOGIN);
-        intent.putExtra(GameIntentService.EXTRA_LOGIN_TEXT, params);
+        Intent intent = new Intent(context, GameService.class);
+        intent.setAction(GameService.ACTION_LOGIN);
+        intent.putExtra(GameService.EXTRA_LOGIN_TEXT, params);
         context.startService(intent);
 
         return mIdCounter++;
