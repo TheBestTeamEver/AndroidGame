@@ -22,7 +22,6 @@ public class LoginActivity extends AppCompatActivity implements ServiceHelper.Lo
     private EditText passwordText;
 
     private Button loginButton;
-    private Button registrationButton;
     private Button withoutButton;
 
     @Override
@@ -34,11 +33,9 @@ public class LoginActivity extends AppCompatActivity implements ServiceHelper.Lo
         passwordText = (EditText) findViewById(R.id.editText2);
 
         loginButton = (Button) findViewById(R.id.button1);
-        registrationButton = (Button) findViewById(R.id.button2);
         withoutButton = (Button) findViewById(R.id.button3);
 
         loginButton.setOnClickListener(this);
-        registrationButton.setOnClickListener(this);
         withoutButton.setOnClickListener(this);
 
     }
@@ -53,20 +50,21 @@ public class LoginActivity extends AppCompatActivity implements ServiceHelper.Lo
                 startActivity(intent);
                 finish();
                 break;
-            case "Login is already used":
-                // TODO
+            case "Wrong login/password":
+                // TODO: Отобржать на активити надпись (на русском)
                 break;
             case "No some fields":
-                // TODO
+                // TODO: Отобржать на активити надпись (на русском)
                 break;
             default:
-                // TODO
+                // TODO: Отобржать на активити надпись (на русском)
                 break;
         }
     }
 
     @Override
     public void onClick(View view) {
+
         switch (view.getId()) {
             case R.id.button1:
 //                progressBar.setVisibility(View.VISIBLE);
@@ -74,14 +72,10 @@ public class LoginActivity extends AppCompatActivity implements ServiceHelper.Lo
                 String password = passwordText.getText().toString();
                 requestId = ServiceHelper.makeLogin(this, new LoginParams(login, password), this);
                 break;
-            case R.id.button2:
-                Intent intent1 = new Intent(this, RegistrationActivity.class);
-                startActivity(intent1);
-                finish();
-                break;
+
             case R.id.button3:
-                Intent intent2 = new Intent(this, NawActivity.class);
-                startActivity(intent2);
+                Intent intent = new Intent(this, NawActivity.class);
+                startActivity(intent);
                 finish();
                 break;
         }

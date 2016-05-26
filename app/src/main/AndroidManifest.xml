@@ -30,7 +30,6 @@
             android:exported="false" />
 
         <activity android:name=".activities.GameOverActivity" />
-        <activity android:name=".activities.RegistrationActivity"></activity>
     </application>
 
 </manifest>
