@@ -5,7 +5,6 @@ import android.graphics.Bitmap;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
 
 import com.google.gson.Gson;
 import com.thebestteamever.game.serviceapi.parcelable.Level;

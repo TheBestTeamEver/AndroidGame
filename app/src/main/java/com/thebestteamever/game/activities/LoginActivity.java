@@ -1,6 +1,8 @@
 package com.thebestteamever.game.activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -12,6 +14,8 @@ import com.thebestteamever.game.R;
 import com.thebestteamever.game.serviceapi.parcelable.LoginParams;
 import com.thebestteamever.game.serviceapi.ServiceHelper;
 
+import java.util.logging.SocketHandler;
+
 public class LoginActivity extends AppCompatActivity implements ServiceHelper.LoginResultListener, View.OnClickListener {
 
     private ProgressBar progressBar;
@@ -22,11 +26,20 @@ public class LoginActivity extends AppCompatActivity implements ServiceHelper.Lo
 
     private Button loginButton;
     private Button withoutButton;
+    
+    
+    final public static String SAVED = "saved";
+    final public static String SAVED_LOGIN = "saved_login";
+    final public static String SAVED_PASSWORD = "saved_password";
+    
+    private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        sharedPreferences = getSharedPreferences(SAVED, Context.MODE_PRIVATE);
 
         loginText = (EditText) findViewById(R.id.editText1);
         passwordText = (EditText) findViewById(R.id.editText2);
@@ -45,6 +58,15 @@ public class LoginActivity extends AppCompatActivity implements ServiceHelper.Lo
 
         switch (result) {
             case "Ok":
+                // TODO: Сохранение данных
+                String login = loginText.getText().toString();
+                String password = passwordText.getText().toString();
+
+                SharedPreferences.Editor ed = sharedPreferences.edit();
+                ed.putString(SAVED_LOGIN, login);
+                ed.putString(SAVED_PASSWORD, password);
+                ed.apply();
+
                 Intent intent = new Intent(this, NawActivity.class);
                 startActivity(intent);
                 finish();
