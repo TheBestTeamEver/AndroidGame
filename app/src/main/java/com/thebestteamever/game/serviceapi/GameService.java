@@ -6,6 +6,7 @@ import android.support.v4.content.LocalBroadcastManager;
 
 import com.thebestteamever.game.serviceapi.parcelable.Level;
 import com.thebestteamever.game.serviceapi.parcelable.LoginParams;
+import com.thebestteamever.game.serviceapi.parcelable.Score;
 
 import java.io.IOException;
 
@@ -28,6 +29,12 @@ public class GameService extends IntentService {
     public final static String ACTION_LOGIN_RESULT_ERROR = "action.ACTION_LOGIN_RESULT_ERROR";
     public final static String EXTRA_LOGIN_RESULT = "extra.LOGIN_RESULT";
 
+    public final static String ACTION_SCORE = "action.SCORE";
+    public final static String EXTRA_SCORE_TEXT = "extra.SCORE_TEXT";
+    public static final String ACTION_SCORE_RESULT_SUCCESS = "action.ACTION_SCORE_RESULT_SUCCESS";
+    public final static String ACTION_SCORE_RESULT_ERROR = "action.ACTION_SCORE_RESULT_ERROR";
+    public final static String EXTRA_SCORE_RESULT = "extra.SCORE_RESULT";
+
     public GameService() {
         super("GameService");
     }
@@ -45,6 +52,9 @@ public class GameService extends IntentService {
             } else if (ACTION_LOGIN.equals(action)) {
                 final LoginParams params = intent.getParcelableExtra(EXTRA_LOGIN_TEXT);
                 handleActionLogin(params);
+            } else if (ACTION_SCORE.equals(action)) {
+                final Score params = intent.getParcelableExtra(EXTRA_SCORE_TEXT);
+                handleActionScore(params);
             }
         }
     }
@@ -102,6 +112,25 @@ public class GameService extends IntentService {
         } catch (IOException ex) {
             LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(
                     new Intent(ACTION_LOGIN_RESULT_ERROR).putExtra(EXTRA_LOGIN_RESULT, ex.getMessage())
+            );
+        }
+    }
+
+    private void handleActionScore(final Score params) {
+        try {
+            final String score = Processor.processScore(params);
+            if (score != null && !score.isEmpty()) {
+                LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(
+                        new Intent(ACTION_SCORE_RESULT_SUCCESS).putExtra(EXTRA_SCORE_RESULT, score)
+                );
+            } else {
+                LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(
+                        new Intent(ACTION_SCORE_RESULT_ERROR).putExtra(EXTRA_SCORE_RESULT, "result is null")
+                );
+            }
+        } catch (IOException ex) {
+            LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(
+                    new Intent(ACTION_SCORE_RESULT_ERROR).putExtra(EXTRA_SCORE_RESULT, ex.getMessage())
             );
         }
     }
