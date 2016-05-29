@@ -187,4 +187,10 @@ public class GameActivity extends AppCompatActivity implements ServiceHelper.Lev
         showTimer();
     }
 
+    @Override
+    public void onBackPressed() {
+        if(timer != null) { timer.cancel(); }
+        super.onBackPressed();
+    }
+
 }
