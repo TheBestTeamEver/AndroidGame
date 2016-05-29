@@ -1,18 +1,19 @@
 package com.thebestteamever.game.activities;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.thebestteamever.game.serviceapi.parcelable.Level;
 import com.thebestteamever.game.R;
 import com.thebestteamever.game.serviceapi.ServiceHelper;
+import com.thebestteamever.game.serviceapi.parcelable.Level;
 
 import java.util.Random;
 
@@ -22,6 +23,8 @@ public class GameActivity extends AppCompatActivity implements ServiceHelper.Lev
     private ImageView leftImage;
     private ImageView rightImage;
     private TextView personName;
+    private Button leftButton;
+    private Button rightButton;
     private Level level;
     private int requestId;
     private boolean isLeft = true;
@@ -46,6 +49,8 @@ public class GameActivity extends AppCompatActivity implements ServiceHelper.Lev
         leftImage = (ImageView) findViewById(R.id.imageView2);
         rightImage = (ImageView) findViewById(R.id.imageView3);
         personName = (TextView) findViewById(R.id.textView6);
+        leftButton = (Button) findViewById(R.id.button);
+        rightButton = (Button) findViewById(R.id.button4);
 
         timerDisplay = (TextView) findViewById(R.id.textView7);
 
@@ -68,6 +73,8 @@ public class GameActivity extends AppCompatActivity implements ServiceHelper.Lev
     public void onLevelResult(boolean success, Level result) {
 
         progressBar.setVisibility(View.INVISIBLE);
+        leftButton.setEnabled(true);
+        rightButton.setEnabled(true);
         startTimer();
 
         if (success && result != null) {
@@ -79,7 +86,7 @@ public class GameActivity extends AppCompatActivity implements ServiceHelper.Lev
 
     public void startGame() {
         // TODO: start game
-//        showTimer();
+        showTimer();
         getNextLevel();
     }
 
@@ -89,8 +96,9 @@ public class GameActivity extends AppCompatActivity implements ServiceHelper.Lev
 //        }
 
         requestId = ServiceHelper.makeLevel(this, "KEK", this);
-        showTimer();
         progressBar.setVisibility(View.VISIBLE);
+        leftButton.setEnabled(false);
+        rightButton.setEnabled(false);
         //unPauseTimer(getCurCountdown());
         count++;
     }
@@ -161,22 +169,10 @@ public class GameActivity extends AppCompatActivity implements ServiceHelper.Lev
             @Override
             public void onTick(long millisUntilFinished) {
                 if(progressBar.isShown()) {
-                    if(!isPause) {
-                        total = millisUntilFinished;
-                        isPause = true;
-                    }
+                    timerDisplay.setText(String.valueOf(total / MILLIS_PER_SECOND));
                 } else {
-                    //total = (int) millisUntilFinished;
-                    if(isPause) {
-                        isPause = false;
-
-                        timerDisplay.setText("" +
-                                total / MILLIS_PER_SECOND);
-                    }
-
-                    timerDisplay.setText("" +
-                            millisUntilFinished / MILLIS_PER_SECOND);
-                    total = millisUntilFinished - 1000;
+                    timerDisplay.setText(String.valueOf(millisUntilFinished / MILLIS_PER_SECOND));
+                    total = millisUntilFinished;
                 }
             }
             @Override
@@ -187,19 +183,8 @@ public class GameActivity extends AppCompatActivity implements ServiceHelper.Lev
         }.start();
     }
 
-//    private void pauseTimer() {
-//        timer.cancel();
-//    }
-
     private void startTimer() {
         showTimer();
     }
 
-//    private long getCurCountdown() {
-//        return curCountdown;
-//    }
-
-//    private void setCurCountdown(long curCountdown) {
-//        this.curCountdown = curCountdown;
-//    }
 }

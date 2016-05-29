@@ -25,7 +25,6 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activities.GameActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"/>
-
         <service
             android:name=".serviceapi.GameService"
             android:exported="false" />
