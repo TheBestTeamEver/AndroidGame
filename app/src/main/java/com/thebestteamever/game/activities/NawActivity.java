@@ -26,6 +26,7 @@ public class NawActivity extends AppCompatActivity
     SettingsFragment settingsFragment;
     TopFragment topFragment;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +55,11 @@ public class NawActivity extends AppCompatActivity
         playFragment = new PlayFragment();
         settingsFragment = new SettingsFragment();
         topFragment = new TopFragment();
+
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.container, playFragment);
+        this.setTitle("Игра");
+        fragmentTransaction.commit();
 
     }
 
@@ -95,14 +101,16 @@ public class NawActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         if (id == R.id.nav_game) {
             fragmentTransaction.replace(R.id.container, playFragment);
+            this.setTitle("Игра");
         } else if (id == R.id.nav_top) {
             fragmentTransaction.replace(R.id.container, topFragment);
+            this.setTitle("Топ");
         } else if (id == R.id.nav_settings) {
             fragmentTransaction.replace(R.id.container, settingsFragment);
+            this.setTitle("Настройки");
         } else if (id == R.id.nav_logout) {
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
