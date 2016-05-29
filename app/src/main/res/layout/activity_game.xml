@@ -17,7 +17,8 @@
         android:background="@color/colorPrimary"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:onClick="onLeftClick"/>
 
     <ImageView
         android:layout_width="150dp"
@@ -27,7 +28,8 @@
         android:background="@color/colorPrimary"
         android:layout_alignTop="@+id/imageView2"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:onClick="onRightClick"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -57,7 +59,9 @@
         android:onClick="onLeftClick"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:visibility="invisible"
+        android:clickable="false"/>
 
     <Button
         android:layout_width="wrap_content"
@@ -67,7 +71,9 @@
         android:onClick="onRightClick"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:visibility="invisible"
+        android:clickable="false"/>
 
     <ProgressBar
         style="?android:attr/progressBarStyleLarge"
@@ -75,7 +81,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/progressBar2"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/textView7"/>
 
 
 </RelativeLayout>
