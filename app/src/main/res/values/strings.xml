@@ -19,5 +19,10 @@
     <string name="person_name">Person Name</string>
 
     <string name="_00_30">00:30</string>
+
+    <string name="pref_key_theme" translatable="false">pref_theme</string>
+    <string name="themePrefTitle">Поменять цвет темы</string>
+
+
 </resources>
 

@@ -1,6 +1,8 @@
 package com.thebestteamever.game.activities;
 
 import android.content.Intent;
+import android.preference.*;
+import android.preference.PreferenceActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -22,12 +24,14 @@ import com.thebestteamever.game.fragments.TopFragment;
 public class NawActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    public static final String START_FRAGMENT = "StartFragmentActivity";
     PlayFragment playFragment;
     SettingsFragment settingsFragment;
     TopFragment topFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        SettingsFragment.updateTheme(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_naw);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -95,22 +99,28 @@ public class NawActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         if (id == R.id.nav_game) {
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.container, playFragment);
+            fragmentTransaction.commit();
+            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+            drawer.closeDrawer(GravityCompat.START);
         } else if (id == R.id.nav_top) {
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.container, topFragment);
+            fragmentTransaction.commit();
+            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+            drawer.closeDrawer(GravityCompat.START);
+
         } else if (id == R.id.nav_settings) {
-            fragmentTransaction.replace(R.id.container, settingsFragment);
-        } else if (id == R.id.nav_logout) {
+            Intent intent = new Intent(this, com.thebestteamever.game.activities.PreferenceActivity.class);
+            startActivity(intent);
+            finish();
+        }
+        else if (id == R.id.nav_logout) {
             //Сделать выход
         }
 
-        fragmentTransaction.commit();
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 }

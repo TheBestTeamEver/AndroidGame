@@ -1,13 +1,30 @@
 package com.thebestteamever.game.fragments;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.Preference;
+import android.preference.PreferenceFragment;
+import android.preference.PreferenceManager;
+import android.preference.SwitchPreference;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.thebestteamever.game.R;
+import com.thebestteamever.game.activities.NawActivity;
+import com.thebestteamever.game.activities.PreferenceActivity;
+
+import java.util.Locale;
+import java.util.prefs.PreferenceChangeListener;
+import java.util.prefs.Preferences;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -17,7 +34,10 @@ import com.thebestteamever.game.R;
  * Use the {@link SettingsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class SettingsFragment extends Fragment {
+public class SettingsFragment extends PreferenceFragment {
+
+    public static final String THEME_SETTING = "theme_setting";
+    SwitchPreference theme_preference;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -54,24 +74,38 @@ public class SettingsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+            addPreferencesFromResource(R.xml.preferences);
+            PreferenceManager.setDefaultValues(getContext(), R.xml.preferences, false);
+        theme_preference = (SwitchPreference) findPreference(getString(R.string.pref_key_theme));
+
+        theme_preference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object o) {
+                final SharedPreferences settings = PreferenceManager
+                        .getDefaultSharedPreferences(getActivity());
+
+                if((Boolean) o) {
+                    settings.edit().putInt(THEME_SETTING, R.style.AppTheme).apply();
+                }
+                else {
+                    settings.edit().putInt(THEME_SETTING, R.style.AppThemeGreen).apply();
+                }
+                refresh();
+                return true;
+            }
+        });
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_settings, container, false);
-    }
-
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
+    public static void updateTheme(Activity act) {
+        SharedPreferences sharedPreferences = PreferenceManager
+                .getDefaultSharedPreferences(act);
+        int theme = sharedPreferences.getInt(
+                SettingsFragment.THEME_SETTING, R.style.AppTheme);
+        act.setTheme(theme);
     }
 
 //    @Override
@@ -84,6 +118,7 @@ public class SettingsFragment extends Fragment {
 //                    + " must implement OnFragmentInteractionListener");
 //        }
 //    }
+
 
     @Override
     public void onDetach() {
@@ -105,4 +140,12 @@ public class SettingsFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
+    public void refresh() {
+        // Refresh the app
+        Intent refresh = new Intent(getActivity(), PreferenceActivity.class);
+        startActivity(refresh);
+        getActivity().finish();
+    }
+
 }

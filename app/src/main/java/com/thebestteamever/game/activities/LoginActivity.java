@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 
 import com.thebestteamever.game.R;
+import com.thebestteamever.game.fragments.SettingsFragment;
 import com.thebestteamever.game.serviceapi.parcelable.LoginParams;
 import com.thebestteamever.game.serviceapi.ServiceHelper;
 
@@ -37,6 +38,7 @@ public class LoginActivity extends AppCompatActivity implements ServiceHelper.Lo
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        SettingsFragment.updateTheme(this);
         setContentView(R.layout.activity_login);
 
         sharedPreferences = getSharedPreferences(SAVED, Context.MODE_PRIVATE);

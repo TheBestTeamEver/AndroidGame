@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.thebestteamever.game.R;
+import com.thebestteamever.game.fragments.SettingsFragment;
 import com.thebestteamever.game.serviceapi.ServiceHelper;
 import com.thebestteamever.game.serviceapi.parcelable.LoginParams;
 
@@ -18,6 +19,7 @@ public class PreActivity extends AppCompatActivity implements ServiceHelper.Logi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        SettingsFragment.updateTheme(this);
         setContentView(R.layout.activity_pre);
 
         isLogin = false;

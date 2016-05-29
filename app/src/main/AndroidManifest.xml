@@ -23,14 +23,16 @@
             android:name=".activities.NawActivity"
             android:label="@string/title_activity_naw"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activities.GameActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"/>
+        <activity
+            android:name=".activities.GameActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize" />
 
         <service
             android:name=".serviceapi.GameService"
             android:exported="false" />
 
         <activity android:name=".activities.GameOverActivity" />
+        <activity android:name=".activities.PreferenceActivity" />
     </application>
 
 </manifest>

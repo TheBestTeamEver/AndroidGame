@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.thebestteamever.game.fragments.SettingsFragment;
 import com.thebestteamever.game.serviceapi.parcelable.Level;
 import com.thebestteamever.game.R;
 import com.thebestteamever.game.serviceapi.ServiceHelper;
@@ -40,6 +41,7 @@ public class GameActivity extends AppCompatActivity implements ServiceHelper.Lev
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        SettingsFragment.updateTheme(this);
         setContentView(R.layout.activity_game);
 
         progressBar = (ProgressBar) findViewById(R.id.progressBar2);
