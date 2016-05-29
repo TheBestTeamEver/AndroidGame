@@ -79,7 +79,7 @@ public class GameActivity extends AppCompatActivity implements ServiceHelper.Lev
 
     public void startGame() {
         // TODO: start game
-        showTimer();
+//        showTimer();
         getNextLevel();
     }
 
@@ -89,6 +89,7 @@ public class GameActivity extends AppCompatActivity implements ServiceHelper.Lev
 //        }
 
         requestId = ServiceHelper.makeLevel(this, "KEK", this);
+        showTimer();
         progressBar.setVisibility(View.VISIBLE);
         //unPauseTimer(getCurCountdown());
         count++;
@@ -172,8 +173,10 @@ public class GameActivity extends AppCompatActivity implements ServiceHelper.Lev
                         timerDisplay.setText("" +
                                 total / MILLIS_PER_SECOND);
                     }
+
                     timerDisplay.setText("" +
                             millisUntilFinished / MILLIS_PER_SECOND);
+                    total = millisUntilFinished - 1000;
                 }
             }
             @Override
