@@ -104,7 +104,9 @@ public class NawActivity extends AppCompatActivity
         } else if (id == R.id.nav_settings) {
             fragmentTransaction.replace(R.id.container, settingsFragment);
         } else if (id == R.id.nav_logout) {
-            //Сделать выход
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+            finish();
         }
 
         fragmentTransaction.commit();
