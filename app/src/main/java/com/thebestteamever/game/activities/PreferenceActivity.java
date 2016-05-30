@@ -1,16 +1,17 @@
 package com.thebestteamever.game.activities;
 
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.content.Intent;
 import android.preference.PreferenceFragment;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
 import com.thebestteamever.game.R;
 import com.thebestteamever.game.fragments.SettingsFragment;
 
-public class PreferenceActivity extends AppCompatActivity {
+public class PreferenceActivity extends android.support.v4.app.FragmentActivity {
 
 
     Boolean inSettings = true;
@@ -20,7 +21,7 @@ public class PreferenceActivity extends AppCompatActivity {
         SettingsFragment.updateTheme(this);
 
         // Display the fragment as the main content.
-        FragmentManager mFragmentManager = getFragmentManager();
+        FragmentManager mFragmentManager = getSupportFragmentManager();
         FragmentTransaction mFragmentTransaction = mFragmentManager
                 .beginTransaction();
         PrefsFragment mPrefsFragment = new PrefsFragment();
