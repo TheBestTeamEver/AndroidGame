@@ -88,7 +88,6 @@ public class TopFragment extends Fragment {
         LinkedList<ListItem> linkedList = new LinkedList<>();
         Cursor cursor = getActivity().getContentResolver().query(RATING_URI, null, null,
                 null, null);
-        int count = 10;
         if (cursor.moveToFirst()) {
 
             // определяем номера столбцов по имени в выборке
@@ -98,8 +97,7 @@ public class TopFragment extends Fragment {
             do {
                 ListItem list = new ListItem(cursor.getString(loginColIndex), cursor.getString(ratingColIndex));
                 linkedList.add(list);
-                count--;
-            } while (cursor.moveToNext() && count > -1);
+            } while (cursor.moveToNext());
         }
         cursor.close();
         return linkedList;

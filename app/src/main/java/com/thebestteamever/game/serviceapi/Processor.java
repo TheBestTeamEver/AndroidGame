@@ -56,31 +56,54 @@ public class Processor {
     public static String processTop(final String text, Context context) throws IOException {
         String data = new Rest().getJSON("http://91.218.230.80/api/get_top/", 15000);
         DataResponse msg = new Gson().fromJson(data, DataResponse.class);
+        context.deleteDatabase("mydb");
 
         if (msg != null) {
             ArrayList<HashMap<String, String>> topList = msg.getData();
             ContentValues cv = new ContentValues();
-            ContentResolver cr = context.getContentResolver();
-//            Cursor cursor = cr.query(RATING_URI, null, null,
-//                    null, null);
-//            if (cursor.moveToFirst()) {
-//                do {
-//                    Uri uri = ContentUris.withAppendedId(RATING_URI, cursor.getColumnIndex("id"));
- //                   int del = cr.delete(uri, null, null);
- //                   Log.d(LOG_TAG, "delete, count = " + del);
- //               } while (cursor.moveToNext() && cursor.getColumnIndex("id")!= -1);
- //           }
-  //          cursor.close();
-//
+            Cursor cursor = context.getContentResolver().query(RATING_URI, null, null,
+                    null, null);
             int k = topList.size();
-            for(int i = 0; i < k; i++) {
-                cv.put(USER_NAME, topList.get(i).get("login"));
-                cv.put(USER_RATING, topList.get(i).get("rating"));
-                Uri uri = ContentUris.withAppendedId(RATING_URI, i);
-                int cnt = cr.update(uri, cv, null, null);
-                Log.d(LOG_TAG, "update, count = " + cnt);
+            if(!cursor.moveToFirst()) {
+                for (int i = 0; i < k; i++) {
+                    cv.put(USER_NAME, topList.get(i).get("login"));
+                    cv.put(USER_RATING, topList.get(i).get("rating"));
+                    Uri newUri = context.getContentResolver().insert(RATING_URI, cv);
+                    Log.d(LOG_TAG, "update, count = " + newUri.toString());
+                }
+//            } else {
+//                int loginColIndex = cursor.getColumnIndex("name");
+//                int ratingColIndex = cursor.getColumnIndex("rating");
+//
+//                for (int i = 0; i < k; i++){
+//                    do {
+//                        cv.put(USER_NAME, topList.get(i).get("login"));
+//                        cv.put(USER_RATING, topList.get(i).get("rating"));
+//                        if(topList.get(i).get("rating").compareTo(cursor.getString(ratingColIndex)) <= 0) {
+//                            if(!topList.get(i).get("login").equals(cursor.getString(loginColIndex))) {
+//                                if(!cursor.moveToNext()) return "Ok";
+//                            } else {
+//                                Uri uri = ContentUris.withAppendedId(RATING_URI, cursor.getColumnIndex("_id"));
+//                                int cnt = context.getContentResolver().update(uri, cv, null, null);
+//                                Log.d(LOG_TAG, "update, count = " + cnt);
+//                                break;
+//                            }
+//                        } else {
+//                            if(!topList.get(i).get("login").equals(cursor.getString(loginColIndex))) {
+//                                    Uri newUri = context.getContentResolver().insert(RATING_URI, cv);
+//                                    Log.d(LOG_TAG, "update, count = " + newUri.toString());
+//                                break;
+//                            } else {
+//                                Uri uri = ContentUris.withAppendedId(RATING_URI, cursor.getColumnIndex("_id"));
+//                                int cnt = context.getContentResolver().update(uri, cv, null, null);
+//                                Log.d(LOG_TAG, "update, count = " + cnt);
+//                                break;
+//                            }
+//                        }
+//                    } while (cursor.moveToNext());
+//                }
             }
-
+            cursor.close();
             return "Ok";
         }
 
