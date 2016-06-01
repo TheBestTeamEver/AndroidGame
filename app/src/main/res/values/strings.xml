@@ -14,7 +14,7 @@
     <string name="naw_settings">Настройки</string>
     <string name="naw_exit">Выход</string>
 
-    <string name="fragment_play_explain">Выбрать по имени личность должны Вы, \n Будьте внимательны, трудолюбивы. \n Ошибка Вам будет стоить очков \n И места в рейтинге -  \n Свод правил таков. </string>
+    <string name="fragment_play_explain">\t1. Выбери фотографию соответствующую имени\n\t2. У тебя есть 30 секунд</string>
 
     <string name="person_name">Person Name</string>
 
