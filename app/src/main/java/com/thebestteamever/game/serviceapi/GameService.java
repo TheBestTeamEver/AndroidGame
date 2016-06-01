@@ -80,7 +80,7 @@ public class GameService extends IntentService {
 
     private void handleActionTop(final String text) {
         try {
-            final String top = Processor.processTop("kek");
+            final String top = Processor.processTop("kek", this);
             if (top != null && !top.isEmpty()) {
                 LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(
                         new Intent(ACTION_TOP_RESULT_SUCCESS).putExtra(EXTRA_TOP_RESULT, top)

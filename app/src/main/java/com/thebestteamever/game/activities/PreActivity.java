@@ -3,11 +3,13 @@ package com.thebestteamever.game.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.thebestteamever.game.R;
+import com.thebestteamever.game.serviceapi.MeRatingProvider;
 import com.thebestteamever.game.serviceapi.ServiceHelper;
 import com.thebestteamever.game.serviceapi.parcelable.LoginParams;
 
@@ -32,7 +34,6 @@ public class PreActivity extends AppCompatActivity implements ServiceHelper.Logi
                 int requestId = ServiceHelper.makeLogin(this, new LoginParams(login, password), this);
             }
         } else {
-
             int requestId = ServiceHelper.makeTop(this, "top", this);
         }
     }
