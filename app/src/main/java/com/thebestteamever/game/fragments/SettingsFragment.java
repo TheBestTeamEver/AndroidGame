@@ -28,7 +28,7 @@ import java.util.prefs.Preferences;
  * Use the {@link SettingsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class SettingsFragment extends PreferenceFragmentCompat {
+public class SettingsFragment extends com.takisoft.fix.support.v7.preference.PreferenceFragmentCompat {
 
     public static final String THEME_SETTING = "theme_setting";
     SwitchPreferenceCompat theme_preference;
@@ -95,7 +95,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     }
 
     @Override
-    public void onCreatePreferences(Bundle bundle, String s) {
+    public void onCreatePreferencesFix(Bundle savedInstanceState, String rootKey) {
 
     }
 
