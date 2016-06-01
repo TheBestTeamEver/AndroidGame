@@ -90,7 +90,7 @@ public class MeRatingProvider extends ContentProvider {
                 Log.d(LOG_TAG, "URI_RATING");
                 // если сортировка не указана, ставим свою - по имени
                 if (TextUtils.isEmpty(sortOrder)) {
-                    sortOrder = USER_RATING + " ASC";
+                    sortOrder = USER_RATING + " DESC";
                 }
                 break;
             case URI_RATING_ID: // Uri с ID
@@ -100,7 +100,7 @@ public class MeRatingProvider extends ContentProvider {
                 if (TextUtils.isEmpty(selection)) {
                     selection = USER_ID + " = " + id;
                 } else {
-                    selection = selection + " AND " + USER_ID + " = " + id;
+                    selection = selection + " AND " + USER_ID + " = " + id + " ORDER BY RATING DESC";
                 }
                 break;
             default:
