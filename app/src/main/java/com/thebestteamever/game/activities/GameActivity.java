@@ -60,8 +60,6 @@ public class GameActivity extends AppCompatActivity implements ServiceHelper.Lev
         leftImage = (ImageView) findViewById(R.id.imageView2);
         rightImage = (ImageView) findViewById(R.id.imageView3);
         personName = (TextView) findViewById(R.id.textView6);
-//        leftButton = (Button) findViewById(R.id.button);
-//        rightButton = (Button) findViewById(R.id.button4);
 
         timerDisplay = (TextView) findViewById(R.id.textView7);
 
@@ -86,10 +84,8 @@ public class GameActivity extends AppCompatActivity implements ServiceHelper.Lev
     public void onLevelResult(boolean success, Level result) {
 
         progressBar.setVisibility(View.INVISIBLE);
-//        leftButton.setEnabled(true);
-//        rightButton.setEnabled(true);
-        leftImage.setClickable(true);
-        rightImage.setClickable(true);
+        leftImage.setEnabled(true);
+        rightImage.setEnabled(true);
         startTimer();
 
         if (success && result != null) {
@@ -112,11 +108,8 @@ public class GameActivity extends AppCompatActivity implements ServiceHelper.Lev
 
         requestId = ServiceHelper.makeLevel(this, "KEK", this);
         progressBar.setVisibility(View.VISIBLE);
-//        leftButton.setEnabled(false);
-//        rightButton.setEnabled(false);
-        leftImage.setClickable(true);
-        rightImage.setClickable(true);
-        //unPauseTimer(getCurCountdown());
+        leftImage.setEnabled(false);
+        rightImage.setEnabled(false);
         count++;
     }
 
