@@ -93,9 +93,9 @@ public class NawActivity extends AppCompatActivity
         } else if (id == R.id.nav_top) {
             fragmentTransaction.replace(R.id.container, topFragment);
             this.setTitle("Топ");
-        } else if (id == R.id.nav_settings) {
-            fragmentTransaction.replace(R.id.container, settingsFragment);
-            this.setTitle("Настройки");
+//        } else if (id == R.id.nav_settings) {
+//            fragmentTransaction.replace(R.id.container, settingsFragment);
+//            this.setTitle("Настройки");
         } else if (id == R.id.nav_logout) {
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);

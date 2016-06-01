@@ -9,9 +9,6 @@
             android:id="@+id/nav_top"
             android:title="@string/naw_top" />
         <item
-            android:id="@+id/nav_settings"
-            android:title="@string/naw_settings" />
-        <item
             android:id="@+id/nav_logout"
             android:title="@string/naw_exit" />
     </group>
